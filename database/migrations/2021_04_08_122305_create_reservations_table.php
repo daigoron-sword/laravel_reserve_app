@@ -15,10 +15,10 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned()->unique();
-            $table->integer('room_id')->unsigned()->unique();
-            $table->integer('meal_plan_id')->unsigned()->unique();
-            $table->integer('extra_price_id')->unsigned()->unique();
+            $table->integer('customer_id')->unsigned();
+            $table->integer('room_id')->unsigned();
+            $table->integer('meal_plan_id')->unsigned();
+            $table->integer('extra_price_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('meal_plan_id')->references('id')->on('meals_plans');

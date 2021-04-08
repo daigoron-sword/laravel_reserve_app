@@ -16,7 +16,7 @@ class CreateNumberOfUsersTable extends Migration
         Schema::create('number_of_users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reserve_id')->unsigned()->unique();
-            $table->integer('type_id')->unsigned()->unique();
+            $table->integer('type_id')->unsigned();
             $table->foreign('reserve_id')->references('id')->on('reservations');
             $table->foreign('type_id')->references('id')->on('types');
             $table->integer('number_of_person');
