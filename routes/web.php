@@ -17,3 +17,7 @@ Route::get('/', 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/reserve', 'ReserveController@index');
+Route::get('/reserve/fill', 'ReserveController@fill');
+Route::post('/reserve/check', 'ReserveController@check');
+
