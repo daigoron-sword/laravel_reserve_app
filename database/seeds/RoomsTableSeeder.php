@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
 
 class RoomsTableSeeder extends Seeder
 {
@@ -11,6 +13,34 @@ class RoomsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $param = [
+            'name' => 'room_a',
+            'price' => '5000',
+            'capacity' => '2'
+        ];
+        DB::table('rooms')->insert($param);
+
+        $param = [
+            'name' => 'room_b',
+            'price' => '10000',
+            'capacity' => '2'
+        ];
+        DB::table('rooms')->insert($param);
+
+        $param = [
+            'name' => 'room_b',
+            'price' => '15000',
+            'capacity' => '3'
+        ];
+        DB::table('rooms')->insert($param);
+
+        $param = [
+            'name' => 'room_c',
+            'price' => '20000',
+            'capacity' => '4'
+        ];
+        DB::table('rooms')->insert($param);
+
+
     }
 }
