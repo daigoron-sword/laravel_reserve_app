@@ -61,5 +61,11 @@ class ReserveController extends Controller
         return view('reserve.check');
     }
 
+    public function select_room(Request $request)
+    {
+        return view('reserve.rooms');
+    }
+
+
 
 }
