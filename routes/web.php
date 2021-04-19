@@ -18,7 +18,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reserve', 'ReserveController@index');
-Route::get('/reserve/rooms', 'ReserveController@select_rooms');
+Route::get('/reserve/rooms', 'ReserveController@select_room');
 Route::get('/reserve/fill', 'ReserveController@fill');
 Route::post('/reserve/check', 'ReserveController@check');
 
