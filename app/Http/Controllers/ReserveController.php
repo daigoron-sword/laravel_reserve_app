@@ -63,8 +63,16 @@ class ReserveController extends Controller
 
     public function select_room(Request $request)
     {
+        session(['date' => $request->date ]);
         return view('reserve.rooms');
     }
+
+    public function select_meal_plan(Request $request)
+    {
+        session(['room' => $request->room ]);
+        return view('reserve.meals_plans');
+    }
+
 
 
 
