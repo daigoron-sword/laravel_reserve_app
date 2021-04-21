@@ -14,8 +14,8 @@
                     {{ Session::get('date') }}
                     <!-- お食事選択 -->
                     <div class="form-group pb-3">
-                        {{ Form::label('room','お食事選択') }}
-                        {{ Form::select('room', App\Models\MealPlan::selectlist(), '選択してください', ['class' => 'form-control','id' => 'meal_plan']) }}
+                        {{ Form::label('meal_plan','お食事選択') }}
+                        {{ Form::select('meal_plan', App\Models\MealPlan::selectlist(), '選択してください', ['class' => 'form-control','id' => 'meal_plan']) }}
                     </div>
                     <!-- /お食事選択 -->
                     <!-- 送信ブロック -->
