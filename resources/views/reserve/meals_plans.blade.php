@@ -21,7 +21,7 @@
                     <!-- 送信ブロック -->
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            {{ Form::submit('個人情報の入力へ', ['class'=>'btn btn-primary btn-block']) }}
+                            {{ Form::submit('人数選択', ['class'=>'btn btn-primary btn-block']) }}
                         </div>
                     <!-- /送信ブロック -->
                     </div>
