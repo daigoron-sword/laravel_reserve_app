@@ -6,13 +6,15 @@ use Carbon\Carbon;
 class CalendarView
 {
     private $carbon;
-
+	// クラスが生成されたときにtime関数を使って引数を＄dateに渡す
 	function __construct($date){
+		// 現在の日付をもとにカーボンを作成
 		$this->carbon = new Carbon($date);
 	}
 	/**
 	 * タイトル
 	 */
+	// 現在の年月を表示させるためのメソッド
 	public function getTitle(){
 		return $this->carbon->format('Y年n月');
 	}
