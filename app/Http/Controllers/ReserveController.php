@@ -32,8 +32,7 @@ class ReserveController extends Controller
 
     public function fill(Request $request)
     {
-        session(['date' => $request->date ]);
-        // $request->session()->put('date', $request->input('date'));
+        session(['meal_plan' => $request->meal_plan]);
         return view('reserve.fill');
     }
 
