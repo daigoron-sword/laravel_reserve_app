@@ -6,6 +6,9 @@
   <title>test</title>
 </head>
 <body>
+{{ Session::get('adult') }}
+{{ Session::get('senior') }}
+{{ Session::get('child') }}
   <h1>お客様入力フォーム</h1>
   <form action="{{url('/reserve/check')}}" method="post">
     @csrf
