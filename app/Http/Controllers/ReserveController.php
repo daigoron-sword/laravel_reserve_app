@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Myclasses\MyServiceInterface;
 use App\Myclasses\Calendar\CalendarView;
+use App\Myclasses\Type\TypeView;
+use App\Models\Type;
+
 
 class ReserveController extends Controller
 {
@@ -32,6 +35,12 @@ class ReserveController extends Controller
 
     public function fill(Request $request)
     {
+        $type_lists = \App\Models\Type::type_lists();
+        foreach($type_lists as $type_list)
+        {
+            // input()で$requestの名前を取得して格納
+            session([$type_list => $request->input($type_list)]);
+        }
         session(['meal_plan' => $request->meal_plan]);
         return view('reserve.fill');
     }
@@ -69,7 +78,8 @@ class ReserveController extends Controller
     public function select_meal_plan(Request $request)
     {
         session(['room' => $request->room ]);
-        return view('reserve.meals_plans');
+        $types = new TypeView();
+        return view('reserve.meals_plans', ['types' => $types]);
     }
 
 
