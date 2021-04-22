@@ -11,62 +11,33 @@ class TypeView
 		// インスタンスの生成と同時にモデルを呼び出す
 		$this->types = Type::all();
 	}
-	// 続きはこれ以下から
-	/**
-	 * タイトル
-	 */
-	// 現在の年月を表示させるためのメソッド
-	public function getTitle(){
-		return $this->carbon->format('Y年n月');
-	}
-
-	/**
-	 * 次の月
-	 */
-	public function getNextMonth(){
-		return $this->carbon->copy()->addMonthsNoOverflow()->format('Y-m');
-	}
-	/**
-	 * 前の月
-	 */
-	public function getPreviousMonth(){
-		return $this->carbon->copy()->subMonthsNoOverflow()->format('Y-m');
-	}
-
-
-
-	/**
-	 * カレンダーを出力する
-	 */
 	function render(){
 		$html = [];
 		$html[] = '<div class="types">';
 		$html[] = '<table class="table">';
 		$html[] = '<thead>';
 		$html[] = '<tr>';
-		$html[] = '<th>月</th>';
-		$html[] = '<th>火</th>';
-		$html[] = '<th>水</th>';
-		$html[] = '<th>木</th>';
-		$html[] = '<th>金</th>';
-		$html[] = '<th>土</th>';
-        $html[] = '<th>日</th>';
+		$html[] = '<th>タイプ</th>';
+		$html[] = '<th>人数</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
 		
 		$html[] = '<tbody>';
 		
-		$weeks = $this->getWeeks();
-		foreach($weeks as $week){
-			$html[] = '<tr class="'.$week->getClassName().'">';
-			$days = $week->getDays();
-			foreach($days as $day){
-				$html[] = '<td class="'.$day->getClassName().'">';
-				$html[] = '<a href="/reserve/rooms?date=' . $day->date() . '">' . $day->render();
-				$html[] = '</a>';
-				$html[] = '</td>';
-				$date = '';
-			}	
+		foreach($this->types as $type){
+			$html[] = '<tr>';
+			$html[] = '<td>';
+			$html[] = $type->type;
+			$html[] = '</td>';
+			$html[] = '<td>';
+			$html[] = '<select name="'. $type->type .'" size="1">';
+			$html[] = '<option value"0">0</option>';
+			$html[] = '<option value"1">1</option>';
+			$html[] = '<option value"2">2</option>';
+			$html[] = '<option value"3">3</option>';
+			$html[] = '<option value"4">4</option>';
+			$html[] = '</select>';
+			$html[] = '</td>';
 			$html[] = '</tr>';
 		}
 		
@@ -74,6 +45,7 @@ class TypeView
 
 		$html[] = '</table>';
 		$html[] = '</div>';
+		// 何も入れない文字列連結
 		return implode("", $html);
     }
     
