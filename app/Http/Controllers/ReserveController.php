@@ -35,12 +35,15 @@ class ReserveController extends Controller
 
     public function fill(Request $request)
     {
+        // Typeモデルで作ったtype_listメソッド呼び出す
         $type_lists = \App\Models\Type::type_lists();
+        // タイプテーブルの名前をあるだけ繰り返し
         foreach($type_lists as $type_list)
         {
-            // input()で$requestの名前を取得して格納
+            // input()で$requestの中の名前を取得してsessionに格納
             session([$type_list => $request->input($type_list)]);
         }
+        //選択された食事プランをsessionに格納
         session(['meal_plan' => $request->meal_plan]);
         return view('reserve.fill');
     }
