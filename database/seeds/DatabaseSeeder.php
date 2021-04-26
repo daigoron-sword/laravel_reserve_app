@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             RoomsTableSeeder::class,
             MealsPlansTableSeeder::class,
             TypesTableSeeder::class,
-            ExtraPricesTableSeeder::class,
         ]);
     }
 }
