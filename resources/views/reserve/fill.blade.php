@@ -13,13 +13,13 @@
         <!-- 名前 -->
         <div class="row">
           <div class="col">
-            {{Form::label('name', '名前',)}}<small>（必須）</small>
+            {{Form::label('name', '氏名',)}}<small>（必須）</small>
             {{Form::text('name', null, ['class' => 'form-control'])}}
           </div>
           <!-- ふりがな -->
           <div class="col">
-            {{Form::label('hurigana', 'ふりがな')}}<small>（必須）</small>
-            {{Form::text('hurigna', null, ['class' => 'form-control'])}}          
+            {{Form::label('hurigana', '氏名（ふりがな）')}}<small>（必須）</small>
+            {{Form::text('hurigana', null, ['class' => 'form-control'])}}          
           </div>
         </div>
           <!-- 性別 -->
@@ -40,12 +40,12 @@
         <!-- 生年月日 -->
         <div class="form-group">
           {{Form::label('dob', '生年月日')}}<small>（必須）</small>
-          {{Form::date('dob', null, ['class' => 'form-control', 'placeholder' => '（例）19920525'])}}
+          {{Form::date('dob', null, ['class' => 'form-control'])}}
         </div>
         <!-- 郵便番号 -->
         <div class="form-group">
           {{Form::label('postal', '郵便番号')}}<small>（必須）</small>
-          {{Form::text('dob', null, ['class' => 'form-control','placeholder' => '（例）1234567'])}}
+          {{Form::text('postal', null, ['class' => 'form-control','placeholder' => '（例）1234567'])}}
         </div>
         <!-- 都道府県 -->
         <div class="form-group">

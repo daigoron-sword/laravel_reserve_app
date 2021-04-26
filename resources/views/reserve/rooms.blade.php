@@ -11,11 +11,10 @@
             <div class="col-md-12">
                 {{ Form::open(['url' => '/reserve/meals_plans', 'method' => 'get', 'files' => false]) }}
                 {{ Form::token() }}
-                    {{ Session::get('date') }}
                     <!-- お部屋選択 -->
                     <div class="form-group pb-3">
                         {{ Form::label('room','お部屋選択') }}
-                        {{ Form::select('room', App\Models\Room::selectlist(), '選択してください', ['class' => 'form-control','id' => 'room']) }}
+                        {{ Form::select('room', App\Models\Room::select_room_list(), '選択してください', ['class' => 'form-control','id' => 'room']) }}
                     </div>
                     <!-- /お部屋選択 -->
                     <!-- 送信ブロック -->
