@@ -17,6 +17,8 @@ class CreateMealsPlansTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('price');
+            $table->date('start_period');
+            $table->date('end_period');
             $table->timestamps();
         });
     }
