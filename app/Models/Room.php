@@ -9,15 +9,15 @@ class Room extends Model
     // 割り当てをさせないようにする
     protected $guarded = ['id'];
 
-    public static function selectlist()
+    public static function select_room_list()
     {
         $rooms = Room::all();
-        $list = array();
-        $list += array("" => "選択してください");
+        $room_list = [];
+        $room_list[""] = "選択してください";
         foreach ($rooms as $room) 
         {
-            $list += array($room->name => $room->name);
+            $room_list[$room->name] = $room->name;
         }
-        return $list;
+        return $room_list;
     }
 }
