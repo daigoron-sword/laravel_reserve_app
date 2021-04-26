@@ -18,11 +18,9 @@ class CreateReservationsTable extends Migration
             $table->integer('customer_id')->unsigned();
             $table->integer('room_id')->unsigned();
             $table->integer('meal_plan_id')->unsigned();
-            $table->integer('extra_price_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('meal_plan_id')->references('id')->on('meals_plans');
-            $table->foreign('extra_price_id')->references('id')->on('extra_prices');
             $table->date('reserved_on');
             $table->integer('number_of_stay');
             $table->string('transportation');
