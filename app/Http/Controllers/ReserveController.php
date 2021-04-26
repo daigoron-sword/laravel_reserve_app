@@ -50,26 +50,22 @@ class ReserveController extends Controller
 
     public function check(Request $request)
     {
-        $check_in = $request->check_in_hour. ':' . $request->check_in_minute;
-        session([
+        session(
+        [
             'name' => $request->name,
             'hurigana' => $request->hurigana,
             'gender' => $request->gender,
-            'email' => $request->email,
+            'mail' => $request->mail,
             'dob' => $request->dob,
             'postal' => $request->postal,
             'prefectures' => $request->prefectures,
             'city' => $request->city,
             'building' => $request->building,
-            'tel' => $request->tel,
-            'transportation' => $request->transportation,
-            'check_in' => $check_in,
-            'past' => $request->past,
-            'anniversary' => $request->anniversary,
-            'request' => $request->requests,
-            'dinner_start_time' => $request->dinner_start_time
+            'tel' => $request->tel
         ]);
-        return view('reserve.check');
+        $type_view = new TypeView();
+        return view('reserve.check', ['type_view' => $type_view]);
+        // return var_dump($request);
     }
 
     public function select_room(Request $request)
@@ -85,7 +81,8 @@ class ReserveController extends Controller
         return view('reserve.meals_plans', ['types' => $types]);
     }
 
-
-
-
+    public function thanks(Request $request)
+    {
+        return view('reserve.thanks');
+    }
 }
