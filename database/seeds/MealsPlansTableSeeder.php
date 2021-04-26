@@ -15,25 +15,33 @@ class MealsPlansTableSeeder extends Seeder
     {
         $param = [
             'name' => 'plan_a',
-            'price' => '5000'
+            'price' => '5000',
+            'start_period' => '20210401',
+            'end_period' => '20211231',
         ];
         DB::table('meals_plans')->insert($param);
 
         $param = [
             'name' => 'plan_b',
-            'price' => '10000'
+            'price' => '10000',
+            'start_period' => '20210401',
+            'end_period' => '20211231',
         ];
         DB::table('meals_plans')->insert($param);
 
         $param = [
             'name' => 'plan_c',
-            'price' => '15000'
+            'price' => '15000',
+            'start_period' => '20210601',
+            'end_period' => '20211231',
         ];
         DB::table('meals_plans')->insert($param);
 
         $param = [
             'name' => 'plan_d',
-            'price' => '20000'
+            'price' => '20000',
+            'start_period' => '20210601',
+            'end_period' => '20211231',
         ];
         DB::table('meals_plans')->insert($param);
 

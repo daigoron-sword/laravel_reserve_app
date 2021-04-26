@@ -28,14 +28,14 @@ class RoomsTableSeeder extends Seeder
         DB::table('rooms')->insert($param);
 
         $param = [
-            'name' => 'room_b',
+            'name' => 'room_c',
             'price' => '15000',
             'capacity' => '3'
         ];
         DB::table('rooms')->insert($param);
 
         $param = [
-            'name' => 'room_c',
+            'name' => 'room_d',
             'price' => '20000',
             'capacity' => '4'
         ];
