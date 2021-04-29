@@ -15,13 +15,13 @@
         {{ Form::token() }}
           <dl class='row'>
             <dt class="col-md-2">予約日</dt>
-              <dd class="col-md-10"><p>{{ Session::get('date') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['date'] }}</p></dd>
             <dt class="col-md-2">お部屋</dt>
-              <dd class="col-md-10"><p>{{ Session::get('room') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['room'] }}</p></dd>
             <dt class="col-md-2">食事プラン</dt>
-              <dd class="col-md-10"><p>{{ Session::get('meal_plan') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['meal_plan'] }}</p></dd>
             <dt class="col-md-2">氏名</dt>
-              <dd class="col-md-10"><p>{{ Session::get('name') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $request->name }}</p></dd>
             <dt class="col-md-2">氏名（ふりがな）</dt>
               <dd class="col-md-10"><p>{{ Session::get('hurigana') }}</p></dd>
             <dt class="col-md-2">性別</dt>

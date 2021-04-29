@@ -9,7 +9,7 @@ class Type extends Model
     // 割り当てをさせないようにする
     protected $guarded = ['id'];
 
-    // typeカラムを引き出すメソッド
+    // typeカラムデータを引き出すメソッド
     public static function type_lists()
     {
         $types = Type::all();
@@ -19,5 +19,11 @@ class Type extends Model
             $type_lists[] = $type->type;
         }
         return $type_lists;
+    }
+
+    // 主テーブルのリレーション
+    public function numberOfUsers()
+    {
+        return $this->hasmany('App\Models\NumberOfUser');
     }
 }

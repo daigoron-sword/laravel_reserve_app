@@ -37,4 +37,10 @@ class MealPlan extends Model
         return $meal_plan_list;
     }
 
+    // 従テーブルのリレーション
+    public function reservations()
+    {
+        return $this->hasmany('App\Models\Reservation');
+    }
+
 }

@@ -116,7 +116,46 @@
           {{Form::label('tel', '電話番号')}}
           {{Form::tel('tel', null, ['placeholder' => '（例）12345678900', 'min' => 0, 'class' => 'form-control'])}}
         </div>
-        <!-- ボタン -->
+        <!-- 宿泊数（未開発部分なので値を入れるだけ） -->
+        <div class="form-group">
+          {{Form::label('namber_of_stay', '宿泊数')}}
+          {{Form::select('namber_of_stay', ['1' => '1拍', '2' => '2拍', '3' => '3拍'], '1', ['class' => 'form-control'])}}
+        </div>
+        <!-- 交通手段 -->
+        <div class="form-group">
+          {{Form::label('transportation', '交通手段')}}
+          {{Form::select('transportation', ['車' => '車', '電車・バス' => '電車・バス', '徒歩' => '徒歩'], '選択してくさい', ['class' => 'form-control', 'placeholder' => '選択してください'])}}
+        </div>
+        <!-- チェックイン時間 -->
+        <div class="form-group">
+          {{Form::label('check_in_time', 'チェックイン時間')}}
+          {{Form::select('check_in_time', 
+            [
+              '15:00' => '15:00',
+              '15:30' => '15:30',
+              '16:00' => '16:00',
+              '16:30' => '16:30',
+              '17:00' => '17:00',
+              '17:30' => '17:30',
+              '18:00' => '18:00',
+            ], '選択してください', ['class' => 'form-control', 'placeholder' => '選択してください'])}}
+        </div>
+        <!-- 夕食開始時間 -->
+        <div class="form-group">
+          {{Form::label('dinner_start_time', 'ご夕食の時間')}}
+          {{Form::select('dinner_start_time', 
+            [
+              '17:00' => '17:00',
+              '18:00' => '18:00',
+              '19:00' => '19:00',
+            ], '選択してください', ['class' => 'form-control', 'placeholder' => '選択してください'])}}
+        </div>
+        <!-- ご要望 -->
+        <div class="form-group">
+        {{Form::label('request', 'ご要望')}}
+        {{Form::textarea('request', null, ['class' => 'form-control', 'placeholder' => 'その他、質問などありましたらお願いします', 'rows' => '3'])}}
+        </div>
+        <!-- 確認ボタン -->
         {{ Form::submit('最終確認', ['class'=>'btn btn-primary btn-block']) }}
       {{ Form::close() }}
   </div>
