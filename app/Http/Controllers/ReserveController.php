@@ -11,6 +11,8 @@ use App\Models\Type;
 use App\Models\MealPlan;
 use App\Models\Room;
 use App\Models\NumberOfuser;
+use Session;
+
 
 
 class ReserveController extends Controller
@@ -67,68 +69,39 @@ class ReserveController extends Controller
 
     public function check(Request $request)
     {
-        // fillフォームの配列を作る
-        $fill_items = [
-            'name',
-            'hurigana',
-            'gender',
-            'mail',
-            'dob',
-            'postal',
-            'prefectures',
-            'city',
-            'building',
-            'tel',
-            'reserved_on',
-            'number_of_stay',
-            'transpotation',
-            'check_in_time',
-            'request',
-            'dinner_start_time'
-        ];
-        // $reqからフォームを抽出
-        $fill_input = $request->only($fill_items);
-        // sessionにfill_inputというキーで格納
-        $request->session()->put('fill_input', $fill_input);
-
-        // session(
-        // [
-        //     'name' => $request->name,
-        //     'hurigana' => $request->hurigana,
-        //     'gender' => $request->gender,
-        //     'mail' => $request->mail,
-        //     'dob' => $request->dob,
-        //     'postal' => $request->postal,
-        //     'prefectures' => $request->prefectures,
-        //     'city' => $request->city,
-        //     'building' => $request->building,
-        //     'tel' => $request->tel,
-        //     'reserved_on' => $request->reserved_on,
-        //     'number_of_stay' => $request->number_of_stay,
-        //     'transpotation' => $request->transpotation,
-        //     'check_in_time' => $request->check_in_time,
-        //     'request' => $request->request,
-        //     'dinner_start_time' => $request->dinner_start_time,
-        // ]);
-
-        // セッションデータを取得
-        $sesdate = [];
-        $sesdata['date'] = $request->session()->get('date');
-        $sesdata['room'] = $request->session()->get('room');
-        $sesdata['meal_plan'] = $request->session()->get('meal_plan');
-        // セッションに値がない場合はリダイレクトする
-		// if(!$sesdata){
-		// 	return redirect()->action("ReserveController@index");
-		// }
+        // 個人情報をセッションに格納
+        session(
+        [
+            'name' => $request->name,
+            'hurigana' => $request->hurigana,
+            'gender' => $request->gender,
+            'mail' => $request->mail,
+            'dob' => $request->dob,
+            'postal' => $request->postal,
+            'prefectures' => $request->prefectures,
+            'city' => $request->city,
+            'building' => $request->building,
+            'tel' => $request->tel,
+            'reserved_on' => $request->reserved_on,
+            'number_of_stay' => $request->number_of_stay,
+            'transpotation' => $request->transpotation,
+            'check_in_time' => $request->check_in_time,
+            'request' => $request->request,
+            'dinner_start_time' => $request->dinner_start_time,
+        ]);
+        // セッションデータ全取得
+        $sesdata = session()->all();
         // check_renderメソッドを使うためにタイプビュー作成
         $type_view = new TypeView();
-        return view('reserve.check', ['type_view' => $type_view, 'request' => $request, 'sesdata' => $sesdata]);
-        // return var_dump($sesdate['date']);
+        return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);
     }
 
 
     public function thanks(Request $request)
     {
+        // 顧客テーブルの登録
+        $customer = new \App\Models\Customer;
+        // $customer->name = ;
         return view('reserve.thanks');
     }
 }
