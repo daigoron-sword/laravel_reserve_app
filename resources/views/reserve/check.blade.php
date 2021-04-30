@@ -21,25 +21,35 @@
             <dt class="col-md-2">食事プラン</dt>
               <dd class="col-md-10"><p>{{ $sesdata['meal_plan'] }}</p></dd>
             <dt class="col-md-2">氏名</dt>
-              <dd class="col-md-10"><p>{{ $request->name }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['name'] }}</p></dd>
             <dt class="col-md-2">氏名（ふりがな）</dt>
-              <dd class="col-md-10"><p>{{ Session::get('hurigana') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['hurigana'] }}</p></dd>
             <dt class="col-md-2">性別</dt>
-              <dd class="col-md-10"><p>{{ Session::get('gender') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['gender'] }}</p></dd>
             <dt class="col-md-2">メールアドレス</dt>
-              <dd class="col-md-10"><p>{{ Session::get('mail') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['mail'] }}</p></dd>
             <dt class="col-md-2">生年月日</dt>
-              <dd class="col-md-10"><p>{{ Session::get('dob') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['dob'] }}</p></dd>
             <dt class="col-md-2">郵便番号</dt>
-              <dd class="col-md-10"><p>{{ Session::get('postal') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['postal'] }}</p></dd>
             <dt class="col-md-2">都道府県</dt>
-              <dd class="col-md-10"><p>{{ Session::get('prefectures') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['prefectures'] }}</p></dd>
             <dt class="col-md-2">市区町村郡/番地</dt>
-              <dd class="col-md-10"><p>{{ Session::get('city') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['city'] }}</p></dd>
             <dt class="col-md-2">建物・アパート名など</dt>
-              <dd class="col-md-10"><p>{{ Session::get('building') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['building'] }}</p></dd>
             <dt class="col-md-2">電話番号</dt>
-              <dd class="col-md-10"><p>{{ Session::get('tel') }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['tel'] }}</p></dd>
+            <dt class="col-md-2">宿泊数</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['number_of_stay'] }}</p></dd>
+            <dt class="col-md-2">交通手段</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['transpotation'] }}</p></dd>
+            <dt class="col-md-2">チェックイン時間</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['check_in_time'] }}</p></dd>
+            <dt class="col-md-2">ご夕食の時間</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['dinner_start_time'] }}</p></dd>
+            <dt class="col-md-2">ご要望</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['reqest'] }}</p></dd>
           </dl>
           <!-- 利用人数 -->
           {!! $type_view->check_render() !!}
