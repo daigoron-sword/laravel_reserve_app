@@ -31,7 +31,7 @@ class MealPlan extends Model
             if ($date_f >= $start_period and $date_f <= $end_period) 
             {
                 // プランを表示する
-                $meal_plan_list[$meal_plan->name] = $meal_plan->name;
+                $meal_plan_list[$meal_plan->id] = $meal_plan->name;
             }
         }
         return $meal_plan_list;

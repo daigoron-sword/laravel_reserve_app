@@ -17,9 +17,9 @@
             <dt class="col-md-2">予約日</dt>
               <dd class="col-md-10"><p>{{ $sesdata['date'] }}</p></dd>
             <dt class="col-md-2">お部屋</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['room'] }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['room_dt']['name'] }}</p></dd>
             <dt class="col-md-2">食事プラン</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['meal_plan'] }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['meal_plan_dt']['name'] }}</p></dd>
             <dt class="col-md-2">氏名</dt>
               <dd class="col-md-10"><p>{{ $sesdata['name'] }}</p></dd>
             <dt class="col-md-2">氏名（ふりがな）</dt>
@@ -48,8 +48,8 @@
               <dd class="col-md-10"><p>{{ $sesdata['check_in_time'] }}</p></dd>
             <dt class="col-md-2">ご夕食の時間</dt>
               <dd class="col-md-10"><p>{{ $sesdata['dinner_start_time'] }}</p></dd>
-            <dt class="col-md-2">ご要望</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['reqest'] }}</p></dd>
+              <dt class="col-md-2">ご要望</dt>
+              <dd class="col-md-10"><p>{{ $sesdata['requests'] }}</p></dd>
           </dl>
           <!-- 利用人数 -->
           {!! $type_view->check_render() !!}

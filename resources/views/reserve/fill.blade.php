@@ -152,8 +152,8 @@
         </div>
         <!-- ご要望 -->
         <div class="form-group">
-        {{Form::label('request', 'ご要望')}}
-        {{Form::textarea('request', null, ['class' => 'form-control', 'placeholder' => 'その他、質問などありましたらお願いします', 'rows' => '3'])}}
+        {{Form::label('requests', 'ご要望')}}
+        {{Form::textarea('requests', null, ['class' => 'form-control', 'placeholder' => 'その他、質問などありましたらお願いします', 'rows' => '3'])}}
         </div>
         <!-- 確認ボタン -->
         {{ Form::submit('最終確認', ['class'=>'btn btn-primary btn-block']) }}

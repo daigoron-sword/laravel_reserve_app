@@ -16,7 +16,8 @@ class Room extends Model
         $room_list[""] = "選択してください";
         foreach ($rooms as $room) 
         {
-            $room_list[$room->name] = $room->name;
+            // バリュー属性にID、表示はroom_nameを表示
+            $room_list[$room->id] = $room->name;
         }
         return $room_list;
     }

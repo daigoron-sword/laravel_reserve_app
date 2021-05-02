@@ -47,7 +47,8 @@ class ReserveController extends Controller
 
     public function select_meal_plan(Request $request)
     {
-        session(['room' => $request->room ]);
+        $room_dt = Room::find($request->room_id);
+        session(['room_dt' => $room_dt ]);
         $types = new TypeView();
         return view('reserve.meals_plans', ['types' => $types]);
     }
@@ -62,8 +63,9 @@ class ReserveController extends Controller
             // input()で$requestの中の名前を取得してsessionに格納
             session([$type_list => $request->input($type_list)]);
         }
-        //選択された食事プランをsessionに格納
-        session(['meal_plan' => $request->meal_plan]);
+        //選択された食事プランをsessionに保存
+        $meal_plan_dt = MealPlan::find($request->meal_plan_id);
+        session(['meal_plan_dt' => $meal_plan_dt ]);
         return view('reserve.fill');
     }
 
@@ -86,11 +88,13 @@ class ReserveController extends Controller
             'number_of_stay' => $request->number_of_stay,
             'transpotation' => $request->transpotation,
             'check_in_time' => $request->check_in_time,
-            'request' => $request->request,
+            'requests' => $request->requests,
             'dinner_start_time' => $request->dinner_start_time,
         ]);
         // セッションデータ全取得
         $sesdata = session()->all();
+        // $item = $sesdata['request'];
+        // return var_dump($item);
         // check_renderメソッドを使うためにタイプビュー作成
         $type_view = new TypeView();
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);
@@ -99,9 +103,28 @@ class ReserveController extends Controller
 
     public function thanks(Request $request)
     {
-        // 顧客テーブルの登録
+        // 顧客テーブルデータの新規作成
         $customer = new \App\Models\Customer;
-        // $customer->name = ;
+        // 挿入
+        $customer->name = session()->get('name');
+        $customer->hurigana = session()->get('hurigana');
+        $customer->gender = session()->get('gender');
+        $customer->mail = session()->get('mail');
+        $customer->dob = session()->get('dob');
+        $customer->postal = session()->get('postal');
+        $customer->prefectures = session()->get('prefectures');
+        $customer->city = session()->get('city');
+        $customer->building = session()->get('building');
+        $customer->tel = session()->get('tel');
+        // 保存
+        $customer->save();
+        // セッションデータ全削除
+        session()->flush();
+        // reservationsテーブルデータの新規作成
+        $reservation = new \App\Models\reservation;
+        // 検索と挿入
+        $reservation;
+
         return view('reserve.thanks');
     }
 }
