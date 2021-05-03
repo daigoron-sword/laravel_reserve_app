@@ -45,6 +45,7 @@ class ReserveController extends Controller
         return view('reserve.rooms');
     }
 
+    
     public function select_meal_plan(Request $request)
     {
         $room_dt = Room::find($request->room_id);
@@ -86,25 +87,36 @@ class ReserveController extends Controller
             'tel' => $request->tel,
             'reserved_on' => $request->reserved_on,
             'number_of_stay' => $request->number_of_stay,
-            'transpotation' => $request->transpotation,
+            'transportation' => $request->transportation,
             'check_in_time' => $request->check_in_time,
             'requests' => $request->requests,
             'dinner_start_time' => $request->dinner_start_time,
         ]);
+        $number = session()->get('number_of_stay');
         // セッションデータ全取得
         $sesdata = session()->all();
-        // $item = $sesdata['request'];
-        // return var_dump($item);
         // check_renderメソッドを使うためにタイプビュー作成
         $type_view = new TypeView();
+
+
+        // // 試験中
+        // $type_lists = \App\Models\Type::type_lists();
+        // foreach($type_lists as $type_list)
+        // {
+        //     $type_dt = Type::where('type', $type_list)->get();
+        //     $type[$type->] = '';
+
+        // }
+        // return dump($type_dt);
+
+
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);
     }
 
 
     public function thanks(Request $request)
     {
-        // 顧客テーブルデータの新規作成
-        $customer = new \App\Models\Customer;
+        $customer = new \App\Models\Customer; // 顧客テーブルデータの新規作成
         // 挿入
         $customer->name = session()->get('name');
         $customer->hurigana = session()->get('hurigana');
@@ -116,15 +128,41 @@ class ReserveController extends Controller
         $customer->city = session()->get('city');
         $customer->building = session()->get('building');
         $customer->tel = session()->get('tel');
+        $customer->save(); // 保存
+        $reservation = new \App\Models\reservation; // reservationsテーブルデータの新規作成
+        // 部屋と食事プランだけ配列の為取得
+        $room_dt = session()->get('room_dt');
+        $meal_plan_dt = session()->get('meal_plan_dt');
+        // 挿入
+        $reservation->customer_id = $customer->id;
+        $reservation->room_id = $room_dt->id;
+        $reservation->meal_plan_id = $meal_plan_dt->id;
+        $reservation->reserved_on = session()->get('date');
+        $reservation->number_of_stay = '1'; //未開発
+        $reservation->transportation = session()->get('transportation'); 
+        $reservation->check_in_time = session()->get('check_in_time'); 
+        $reservation->request = session()->get('requests'); 
+        $reservation->dinner_start_time = session()->get('dinner_start_time'); 
         // 保存
-        $customer->save();
+        $reservation->save();
+
+        // Typeモデルで作ったtype_listメソッド呼び出す
+        $type_lists = \App\Models\Type::type_lists();
+        // タイプテーブルの名前をあるだけ繰り返し
+        foreach($type_lists as $type_list)
+        {
+            $number_of_user = new \App\Models\NumberOfUser;// 人数内訳テーブルの新規作成
+            $type_dt = Type::where('type', $type_list)->get();
+            $number_of_user->fill(
+                [
+                    'reserve_id' => $reservation->id,
+                    'type_id' => $type_dt['id'],
+                    'number_of_person' =>session()->get($type_list)
+                ])->save();
+        }
+        
         // セッションデータ全削除
         session()->flush();
-        // reservationsテーブルデータの新規作成
-        $reservation = new \App\Models\reservation;
-        // 検索と挿入
-        $reservation;
-
         return view('reserve.thanks');
     }
 }

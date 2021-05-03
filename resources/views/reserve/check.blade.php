@@ -43,7 +43,7 @@
             <dt class="col-md-2">宿泊数</dt>
               <dd class="col-md-10"><p>{{ $sesdata['number_of_stay'] }}</p></dd>
             <dt class="col-md-2">交通手段</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['transpotation'] }}</p></dd>
+              <dd class="col-md-10"><p>{{ $sesdata['transportation'] }}</p></dd>
             <dt class="col-md-2">チェックイン時間</dt>
               <dd class="col-md-10"><p>{{ $sesdata['check_in_time'] }}</p></dd>
             <dt class="col-md-2">ご夕食の時間</dt>

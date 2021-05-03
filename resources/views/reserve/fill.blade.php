@@ -14,16 +14,16 @@
         <div class="row">
           <div class="col">
             {{Form::label('name', '氏名',)}}<small>（必須）</small>
-            {{Form::text('name', null, ['class' => 'form-control'])}}
+            {{Form::text('name', old('name'), ['class' => 'form-control'])}}
           </div>
           <!-- ふりがな -->
           <div class="col">
             {{Form::label('hurigana', '氏名（ふりがな）')}}<small>（必須）</small>
-            {{Form::text('hurigana', null, ['class' => 'form-control'])}}          
+            {{Form::text('hurigana', old('hurigana'), ['class' => 'form-control'])}}          
           </div>
         </div>
           <!-- 性別 -->
-        {{Form::label('name', '性別')}}<small>（必須）</small>
+        {{Form::label('gender', '性別')}}<small>（必須）</small>
         <div class="form-check form-check-inline">
           {{Form::radio('gender', '男性', false, ['class' => 'form-check-input'])}}
           {{Form::label('gender', '男性', ['class' => 'form-check-label'])}}
@@ -118,8 +118,8 @@
         </div>
         <!-- 宿泊数（未開発部分なので値を入れるだけ） -->
         <div class="form-group">
-          {{Form::label('namber_of_stay', '宿泊数')}}
-          {{Form::select('namber_of_stay', ['1' => '1拍', '2' => '2拍', '3' => '3拍'], '1', ['class' => 'form-control'])}}
+          {{Form::label('number_of_stay', '宿泊数')}}
+          {{Form::select('number_of_stay', ['1' => '1拍', '2' => '2拍', '3' => '3拍'], '1', ['class' => 'form-control'])}}
         </div>
         <!-- 交通手段 -->
         <div class="form-group">
