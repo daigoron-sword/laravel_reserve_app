@@ -114,7 +114,7 @@ class ReserveController extends Controller
         $customer->building = session()->get('building');
         $customer->tel = session()->get('tel');
         $customer->save(); // 保存
-        $reservation = new \App\Models\reservation; // reservationsテーブルデータの新規作成
+        $reservation = new \App\Models\reservation; // reservationsテーブルデータ新規作成
         // 部屋と食事プランだけ配列の為取得
         $room_dt = session()->get('room_dt');
         $meal_plan_dt = session()->get('meal_plan_dt');

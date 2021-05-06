@@ -17,8 +17,8 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('hurigana');
-            $table->string('gender');
-            $table->string('mail')->unique();
+            $table->string('gender')->nullable();
+            $table->string('mail');
             $table->string('dob');
             $table->string('postal');
             $table->string('prefectures');
