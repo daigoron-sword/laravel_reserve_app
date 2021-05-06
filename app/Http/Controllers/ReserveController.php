@@ -93,23 +93,8 @@ class ReserveController extends Controller
             'dinner_start_time' => $request->dinner_start_time,
         ]);
         $number = session()->get('number_of_stay');
-        // セッションデータ全取得
         $sesdata = session()->all();
-        // check_renderメソッドを使うためにタイプビュー作成
-        $type_view = new TypeView();
-
-
-        // // 試験中
-        // $type_lists = \App\Models\Type::type_lists();
-        // foreach($type_lists as $type_list)
-        // {
-        //     $type_dt = Type::where('type', $type_list)->get();
-        //     $type[$type->] = '';
-
-        // }
-        // return dump($type_dt);
-
-
+        $type_view = new TypeView(); //check_renderメソッドを使うためにタイプビュー作成
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);
     }
 
@@ -146,17 +131,16 @@ class ReserveController extends Controller
         // 保存
         $reservation->save();
 
-        // Typeモデルで作ったtype_listメソッド呼び出す
-        $type_lists = \App\Models\Type::type_lists();
+        $type_lists = \App\Models\Type::type_lists(); // Typeモデルで作ったtype_listメソッド呼び出す
         // タイプテーブルの名前をあるだけ繰り返し
         foreach($type_lists as $type_list)
         {
             $number_of_user = new \App\Models\NumberOfUser;// 人数内訳テーブルの新規作成
-            $type_dt = Type::where('type', $type_list)->get();
+            $type_id = Type::where('type', $type_list)->value('id'); //タイプ名で検索してidのみを取得
             $number_of_user->fill(
                 [
                     'reserve_id' => $reservation->id,
-                    'type_id' => $type_dt['id'],
+                    'type_id' => $type_id,
                     'number_of_person' =>session()->get($type_list)
                 ])->save();
         }
