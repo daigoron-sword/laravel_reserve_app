@@ -32,15 +32,14 @@ class ReserveRequest extends FormRequest
             'name' => 'required',
             'hurigana' => 'required',
             'gender' => 'required',
-            'mail' => 'required',
+            'mail' => ['required', 'email'],
             'dob' => 'required',
-            'postal' => 'required',
+            'postal' => ['integer', 'required'],
             'prefectures' => 'required',
             'city' => 'required',
             'building' => 'required',
-            'tel' => 'required',
+            'tel' => ['required', 'integer'],
             'transportation' => 'required',
-            'request' => 'required',
             'dinner_start_time' => 'required'
         ];
     }
