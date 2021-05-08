@@ -12,6 +12,7 @@ use App\Models\MealPlan;
 use App\Models\Room;
 use App\Models\NumberOfuser;
 use Session;
+use App\Http\Requests\ReserveRequest;
 
 
 
@@ -70,7 +71,7 @@ class ReserveController extends Controller
         return view('reserve.fill');
     }
 
-    public function check(Request $request)
+    public function check(ReserveRequest $request) //バリデーションルール使用
     {
         // 個人情報をセッションに格納
         session(
