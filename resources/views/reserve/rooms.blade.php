@@ -14,6 +14,9 @@
                     <!-- お部屋選択 -->
                     <div class="form-group pb-3">
                         {{ Form::label('room_id','お部屋選択') }}
+                        @error('room_id')
+                            <p>{{$message}}</p> 
+                        @enderror
                         {{ Form::select('room_id', App\Models\Room::select_room_list(), '選択してください', ['class' => 'form-control','id' => 'room']) }}
                     </div>
                     <!-- /お部屋選択 -->

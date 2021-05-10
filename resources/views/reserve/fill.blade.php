@@ -13,23 +13,23 @@
         <!-- 名前 -->
         <div class="row">
           <div class="col">
+            {{Form::label('name', '氏名',)}}<small>（必須）</small>
             @error('name')
               <p>{{$message}}</p> 
             @enderror
-            {{Form::label('name', '氏名',)}}<small>（必須）</small>
             {{Form::text('name', old('name'), ['class' => 'form-control'])}}
           </div>
           <!-- ふりがな -->
           <div class="col">
-            @error('name')
+            {{Form::label('hurigana', '氏名（ふりがな）')}}<small>（必須）</small>
+            @error('hurigana')
               <p>{{$message}}</p> 
             @enderror
-            {{Form::label('hurigana', '氏名（ふりがな）')}}<small>（必須）</small>
             {{Form::text('hurigana', old('hurigana'), ['class' => 'form-control'])}}          
           </div>
         </div>
         <!-- 性別 -->
-        @error('name')
+        @error('gender')
           <p>{{$message}}</p> 
         @enderror
         {{Form::label('gender', '性別')}}<small>（必須）</small>
@@ -44,21 +44,33 @@
         <!-- メールアドレス -->
         <div class="form-group">
           {{Form::label('mail', 'メールアドレス')}}<small>（必須）</small>
+        @error('mail')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::email('mail', old('mail'), ['class' => 'form-control'])}}
         </div>
         <!-- 生年月日 -->
         <div class="form-group">
           {{Form::label('dob', '生年月日')}}<small>（必須）</small>
+        @error('dob')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::date('dob', old('date'), ['class' => 'form-control'])}}
         </div>
         <!-- 郵便番号 -->
         <div class="form-group">
           {{Form::label('postal', '郵便番号')}}<small>（必須）</small>
+        @error('postal')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::text('postal', old('postal'), ['class' => 'form-control','placeholder' => '（例）1234567'])}}
         </div>
         <!-- 都道府県 -->
         <div class="form-group">
           {{Form::label('prefectures', '都道府県')}}<small>（必須）</small>
+        @error('prefectures')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::select('prefectures', 
             [
             '北海道' => '北海道',
@@ -113,31 +125,49 @@
         <!-- 市区町村 -->
         <div class="form-group">
           {{Form::label('city', '市区町村郡/番地')}}<small>（必須）</small>
+        @error('city')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::text('city', old('city'), ['class' => 'form-control'])}}
         </div>
         <!-- 建物名 -->
         <div class="form-group">
           {{Form::label('building', '建物・アパート名など')}}
+        @error('building')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::text('building', old('building'), ['class' => 'form-control'])}}
         </div>
         <!-- 電話番号 -->
         <div class="form-group">
-          {{Form::label('tel', '電話番号')}}
+          {{Form::label('tel', '電話番号')}}<small>（必須）</small>
+        @error('tel')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::tel('tel', old('tel'), ['placeholder' => '（例）12345678900', 'min' => 0, 'class' => 'form-control'])}}
         </div>
         <!-- 宿泊数（未開発部分なので値を入れるだけ） -->
         <div class="form-group">
           {{Form::label('number_of_stay', '宿泊数')}}
+        @error('number_of_stay')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::select('number_of_stay', ['1' => '1拍', '2' => '2拍', '3' => '3拍'], '1', ['class' => 'form-control'])}}
         </div>
         <!-- 交通手段 -->
         <div class="form-group">
-          {{Form::label('transportation', '交通手段')}}
+          {{Form::label('transportation', '交通手段')}}<small>（必須）</small>
+        @error('transportation')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::select('transportation', ['車' => '車', '電車・バス' => '電車・バス', '徒歩' => '徒歩'], old('transportation'), ['class' => 'form-control', 'placeholder' => '選択してください'])}}
         </div>
         <!-- チェックイン時間 -->
         <div class="form-group">
           {{Form::label('check_in_time', 'チェックイン時間')}}
+        @error('check_in_time')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::select('check_in_time', 
             [
               '15:00' => '15:00',
@@ -151,7 +181,10 @@
         </div>
         <!-- 夕食開始時間 -->
         <div class="form-group">
-          {{Form::label('dinner_start_time', 'ご夕食の時間')}}
+          {{Form::label('dinner_start_time', 'ご夕食の時間')}}<small>（必須）</small>
+        @error('dinner_start_time')
+          <p>{{$message}}</p> 
+        @enderror
           {{Form::select('dinner_start_time', 
             [
               '17:00' => '17:00',
@@ -162,7 +195,7 @@
         <!-- ご要望 -->
         <div class="form-group">
         {{Form::label('requests', 'ご要望')}}
-        {{Form::textarea('requests', old('requests'), ['class' => 'form-control', 'placeholder' => 'その他、質問などありましたらお願いします', 'rows' => '3'])}}
+        {{Form::textarea('requests', old('requests'), ['class' => 'form-control', 'placeholder' => 'その他、質問などありましたらお願いします。', 'rows' => '3'])}}
         </div>
         <!-- 確認ボタン -->
         {{ Form::submit('最終確認', ['class'=>'btn btn-primary btn-block']) }}

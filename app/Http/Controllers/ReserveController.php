@@ -49,6 +49,8 @@ class ReserveController extends Controller
     
     public function select_meal_plan(Request $request)
     {
+        $validate_rule =['room_id' => 'required']; //；部屋選択のバリデーションルール
+        $this->validate($request, $validate_rule);
         $room_dt = Room::find($request->room_id);
         session(['room_dt' => $room_dt ]);
         $types = new TypeView();
@@ -57,13 +59,21 @@ class ReserveController extends Controller
 
     public function fill(Request $request)
     {
+        $validate_rule =['meal_plan_id' => 'required']; // 食事プランのバリデーションルール
+        $this->validate($request, $validate_rule);
         // Typeモデルで作ったtype_listメソッド呼び出す
         $type_lists = \App\Models\Type::type_lists();
+
+        // 開発段階
+        $a = $request->all();
+        return dump($a);
+        // 開発段階
+
+
         // タイプテーブルの名前をあるだけ繰り返し
         foreach($type_lists as $type_list)
         {
-            // input()で$requestの中の名前を取得してsessionに格納
-            session([$type_list => $request->input($type_list)]);
+            session([$type_list => $request->input($type_list)]); // input()で$requestの中の名前を取得してsessionに格納
         }
         //選択された食事プランをsessionに保存
         $meal_plan_dt = MealPlan::find($request->meal_plan_id);
@@ -93,7 +103,7 @@ class ReserveController extends Controller
             'requests' => $request->requests,
             'dinner_start_time' => $request->dinner_start_time,
         ]);
-        $number = session()->get('number_of_stay');
+        $number = session()->get('number_of_stay');//いらない。。。
         $sesdata = session()->all();
         $type_view = new TypeView(); //check_renderメソッドを使うためにタイプビュー作成
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);

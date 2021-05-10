@@ -133,6 +133,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'room_id' => [
+            'required' => 'お部屋を選択してください。'
+        ],
+        'meal_plan_id' => [
+            'required' => '食事プランを選択してください。'
+        ],
+
     ],
 
     /*

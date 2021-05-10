@@ -15,6 +15,9 @@
                     <!-- お食事選択 -->
                     <div class="form-group pb-3">
                         {{ Form::label('meal_plan_id','お食事選択') }}
+                        @error('meal_plan_id')
+                            <p>{{$message}}</p> 
+                        @enderror
                         {{ Form::select('meal_plan_id', App\Models\MealPlan::select_meal_plan_list(Session::get('date')), '選択してください', ['class' => 'form-control','id' => 'meal_plan']) }}
                     </div>
                     <!-- /お食事選択 -->
