@@ -13,6 +13,7 @@ use App\Models\Room;
 use App\Models\NumberOfuser;
 use Session;
 use App\Http\Requests\ReserveRequest;
+use App\Rules\allZero;
 
 
 
@@ -59,20 +60,20 @@ class ReserveController extends Controller
 
     public function fill(Request $request)
     {
-        $validate_rule =['meal_plan_id' => 'required']; // 食事プランのバリデーションルール
+        $type_lists = \App\Models\Type::type_lists(); // Typeモデルで作ったtype_listメソッド呼び出す
+        foreach($type_lists as $type_list)
+        {    
+            $ints[$type_list] = $request->input($type_list); 
+        }
+        // return dump($ints);
+        $validate_rule =[
+            'meal_plan_id' => 'required',
+            'all_zero_dummy' => new allZero($ints)
+        ]; // 食事プランのバリデーションルール
         $this->validate($request, $validate_rule);
-        // Typeモデルで作ったtype_listメソッド呼び出す
-        $type_lists = \App\Models\Type::type_lists();
-
-        // 開発段階
-        $a = $request->all();
-        return dump($a);
-        // 開発段階
-
-
         // タイプテーブルの名前をあるだけ繰り返し
         foreach($type_lists as $type_list)
-        {
+        {    
             session([$type_list => $request->input($type_list)]); // input()で$requestの中の名前を取得してsessionに格納
         }
         //選択された食事プランをsessionに保存
