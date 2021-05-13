@@ -16,6 +16,8 @@ class CreateTypesTable extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
+            $table->string('description'); //説明文
+            $table->string('bedding'); //寝具のありなし
             $table->integer('price');
             $table->timestamps();
         });
