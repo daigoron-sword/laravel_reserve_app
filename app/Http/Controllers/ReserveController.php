@@ -13,7 +13,7 @@ use App\Models\Room;
 use App\Models\NumberOfuser;
 use Session;
 use App\Http\Requests\ReserveRequest;
-use App\Rules\allZero;
+use App\Http\Requests\PlanTypeRequest;
 
 
 
@@ -58,23 +58,12 @@ class ReserveController extends Controller
         return view('reserve.meals_plans', ['types' => $types]);
     }
 
-    public function fill(Request $request)
+    public function fill(PlanTypeRequest $request)
     {
-        $type_lists = \App\Models\Type::type_lists(); // Typeモデルで作ったtype_listメソッド呼び出す
-        foreach($type_lists as $type_list)
+        $types = Type::all();
+        foreach($types as $type)
         {    
-            $ints[$type_list] = $request->input($type_list); 
-        }
-        // return dump($ints);
-        $validate_rule =[
-            'meal_plan_id' => 'required',
-            'all_zero_dummy' => new allZero($ints)
-        ]; // 食事プランのバリデーションルール
-        $this->validate($request, $validate_rule);
-        // タイプテーブルの名前をあるだけ繰り返し
-        foreach($type_lists as $type_list)
-        {    
-            session([$type_list => $request->input($type_list)]); // input()で$requestの中の名前を取得してsessionに格納
+            session(['type_id['.$type->id.']' => $request->type_id[$type->id]]); // type_id配列にしてそれぞれに値をsessionに保存
         }
         //選択された食事プランをsessionに保存
         $meal_plan_dt = MealPlan::find($request->meal_plan_id);
@@ -104,7 +93,6 @@ class ReserveController extends Controller
             'requests' => $request->requests,
             'dinner_start_time' => $request->dinner_start_time,
         ]);
-        $number = session()->get('number_of_stay');//いらない。。。
         $sesdata = session()->all();
         $type_view = new TypeView(); //check_renderメソッドを使うためにタイプビュー作成
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);

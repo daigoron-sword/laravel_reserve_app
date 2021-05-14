@@ -21,10 +21,10 @@
                         {{ Form::select('meal_plan_id', App\Models\MealPlan::select_meal_plan_list(Session::get('date')), '選択してください', ['class' => 'form-control','id' => 'meal_plan']) }}
                     </div>
                     <!-- /お食事選択 -->
-                    @error('all_zero_dummy')
-                            <p>{{$message}}</p> 
-                    @enderror
                     <!-- 人数選択 -->
+                    @error('type_id.2')
+                        <p>{{$message}}</p> 
+                    @enderror
                     {!! $types->render() !!}
                     <!-- /人数選択 -->
                     <!-- 送信ブロック -->

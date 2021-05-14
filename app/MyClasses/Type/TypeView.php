@@ -32,7 +32,7 @@ class TypeView
 			$html[] = $type->type;
 			$html[] = '</td>';
 			$html[] = '<td>';
-			$html[] = '<select name="'. $type->type .'" size="1">';
+			$html[] = '<select name="type_id['. $type->id .']" size="1">';
 			$html[] = '<option value"0">0</option>';
 			$html[] = '<option value"1">1</option>';
 			$html[] = '<option value"2">2</option>';
