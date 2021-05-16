@@ -20,6 +20,8 @@ class TypeView
 		$html[] = '<thead>';
 		$html[] = '<tr>';
 		$html[] = '<th>タイプ</th>';
+		$html[] = '<th>説明</th>';
+		$html[] = '<th>寝具</th>';
 		$html[] = '<th>人数</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
@@ -30,6 +32,12 @@ class TypeView
 			$html[] = '<tr>';
 			$html[] = '<td>';
 			$html[] = $type->type;
+			$html[] = '</td>';
+			$html[] = '<td>';
+			$html[] = $type->description;
+			$html[] = '</td>';
+			$html[] = '<td>';
+			$html[] = $type->bedding;
 			$html[] = '</td>';
 			$html[] = '<td>';
 			$html[] = '<select name="type_id['. $type->id .']" size="1">';
@@ -70,7 +78,7 @@ class TypeView
 			$html[] = $type->type;
 			$html[] = '</td>';
 			$html[] = '<td>';
-			$html[] = Session::get($type->type);
+			$html[] = Session::get('type_id_'.$type->id.'');
 			$html[] = '</td>';
 			$html[] = '<td>';
 			$html[] = '';

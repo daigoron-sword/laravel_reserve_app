@@ -29,35 +29,38 @@ class PlanTypeRequest extends FormRequest
     
     public function rules()
     {
-        $capacity = function($atribute, $value, $fail)
-        {
-            $input_data = $this->all();
-            $type_1 = $input_data['type_id']["1"];
-            $type_2 = $input_data['type_id']["2"];
-            $type_3 = $input_data['type_id']["3"];
-            $type_4 = $input_data['type_id']["4"];
-            $type_5 = $input_data['type_id']["5"];
-            $type_6 = $input_data['type_id']["6"];
-            $type_8 = $input_data['type_id']["8"];
-            $type_10 = $input_data['type_id']["10"];
-            $sum = $type_1 + $type_2 + $type_3 + $type_4 + $type_5 + $type_6 + $type_8 + $type_10;
-            if(2 <= $sum && 4 >= $sum )
-            {
-                $fail('定員は2～4名様(寝具なしのお子様はカウントされません)でお願います。');
-            }
-        };
-
         $varidate_func = function($atribute, $value, $fail)
         {
             $input_data = $this->all();
-            if(0 == $input_data['type_id']["1"] && 0 == $input_data['type_id']["2"] )
+            $type_1 = $input_data['type_id']['1'];
+            $type_2 = $input_data['type_id']['2'];
+            $type_3 = $input_data['type_id']['3'];
+            $type_4 = $input_data['type_id']['4'];
+            $type_5 = $input_data['type_id']['5'];
+            $type_6 = $input_data['type_id']['6'];
+            $type_8 = $input_data['type_id']['8'];
+            $type_10 = $input_data['type_id']["10"];
+            if(0 == $type_1 && 0 == $type_2 )
             {
-                $fail('大人のお客様は最低でも2人でお願いします。');
+                return $fail('大人のお客様は最低でも2人でお願いします。');
             }
+
+            $sum = $type_1 + $type_2;
+            if($sum == 1)
+            {
+                return $fail('大人のお客様は最低でも2人でお願いします。');
+            }
+
+            $sum = $type_1 + $type_2 + $type_3 + $type_4 + $type_5 + $type_6 + $type_8 + $type_10;
+            if(2 > $sum || 4 < $sum )
+            {
+                return $fail('定員は2～4名様(寝具なしのお子様はカウントされません)でお願いします。');
+            }
+
         };
         return [
             'meal_plan_id' => 'required',
-            'type_id.2' => [$capacity, $varidate_func]
+            'type_id.2' => $varidate_func
         ];
     }
 

@@ -38,9 +38,8 @@ class ReserveRequest extends FormRequest
             'dob' => 'required',
             'postal' => ['required', 'integer'],
             'prefectures' => 'required',
-            'city' => ['required', new fullWidth()],
-            'building' => ['nullable', new fullWidth()], //nullableで入力があった場合バリデーション
-            'tel' => ['required', 'integer'],
+            'city' => 'required',
+            'tel' => ['required', 'numeric'],
             'transportation' => 'required',
             'dinner_start_time' => 'required'
         ];
@@ -60,7 +59,7 @@ class ReserveRequest extends FormRequest
             'prefectures.required' => '都道府県必ず選択してください。',
             'city.required' => '市区町村、番地まで記入してください。',
             'tel.required' => '電話番号は必ず記入してください。',
-            'tel.integer' => '番号のみ記入してください。',
+            'tel.numeric' => '番号のみ記入してください。',
             'transportation.required' => '交通手段は必ず選択してください。',
             'dinner_start_time.required' => 'ご夕食の時間は必ず選択してください。'
         ];

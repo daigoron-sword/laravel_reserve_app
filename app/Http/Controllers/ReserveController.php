@@ -60,12 +60,11 @@ class ReserveController extends Controller
 
     public function fill(PlanTypeRequest $request)
     {
-        $types = Type::all();
-        foreach($types as $type)
-        {    
-            session(['type_id['.$type->id.']' => $request->type_id[$type->id]]); // type_id配列にしてそれぞれに値をsessionに保存
+        // idを繰り返すためのfor文
+        for($i = 1; $i <= 11; $i++)
+        {
+            session(['type_id_' . $i .'' => $request->type_id[$i]]); // type_id配列にしてそれぞれに値をsessionに保存
         }
-        //選択された食事プランをsessionに保存
         $meal_plan_dt = MealPlan::find($request->meal_plan_id);
         session(['meal_plan_dt' => $meal_plan_dt ]);
         return view('reserve.fill');
@@ -101,50 +100,54 @@ class ReserveController extends Controller
 
     public function thanks(Request $request)
     {
+        $sesdata = session()->all();
         $customer = new \App\Models\Customer; // 顧客テーブルデータの新規作成
         // 挿入
-        $customer->name = session()->get('name');
-        $customer->hurigana = session()->get('hurigana');
-        $customer->gender = session()->get('gender');
-        $customer->mail = session()->get('mail');
-        $customer->dob = session()->get('dob');
-        $customer->postal = session()->get('postal');
-        $customer->prefectures = session()->get('prefectures');
-        $customer->city = session()->get('city');
-        $customer->building = session()->get('building');
-        $customer->tel = session()->get('tel');
-        $customer->save(); // 保存
+        $customer->fill
+        ([
+            'name' => $sesdata['name'],
+            'hurigana' => $sesdata['hurigana'],
+            'gender' => $sesdata['gender'],
+            'mail' => $sesdata['mail'],
+            'dob' => $sesdata['dob'],
+            'postal' => $sesdata['postal'],
+            'prefectures' => $sesdata['prefectures'],
+            'city' => $sesdata['city'],
+            'building' => $sesdata['building'],
+            'tel' => $sesdata['tel']
+        ])->save();
+
         $reservation = new \App\Models\reservation; // reservationsテーブルデータ新規作成
         // 部屋と食事プランだけ配列の為取得
         $room_dt = session()->get('room_dt');
         $meal_plan_dt = session()->get('meal_plan_dt');
         // 挿入
-        $reservation->customer_id = $customer->id;
-        $reservation->room_id = $room_dt->id;
-        $reservation->meal_plan_id = $meal_plan_dt->id;
-        $reservation->reserved_on = session()->get('date');
-        $reservation->number_of_stay = '1'; //未開発
-        $reservation->transportation = session()->get('transportation'); 
-        $reservation->check_in_time = session()->get('check_in_time'); 
-        $reservation->request = session()->get('requests'); 
-        $reservation->dinner_start_time = session()->get('dinner_start_time'); 
-        // 保存
-        $reservation->save();
+        $reservation->fill
+        ([
+            'customer_id' => $customer->id,
+            'room_id' => $room_dt->id,
+            'meal_plan_id' => $meal_plan_dt->id,
+            'reserved_on' => $sesdata['date'],
+            'number_of_stay' => '1', //未開発
+            'transportation' => $sesdata['transportation'],
+            'check_in_time' => $sesdata['check_in_time'],
+            'request' => $sesdata['requests'],
+            'dinner_start_time' => $sesdata['dinner_start_time'],
+        ])->save();
 
-        $type_lists = \App\Models\Type::type_lists(); // Typeモデルで作ったtype_listメソッド呼び出す
-        // タイプテーブルの名前をあるだけ繰り返し
-        foreach($type_lists as $type_list)
+        for($i = 1; $i <= 11; $i++)
         {
-            $number_of_user = new \App\Models\NumberOfUser;// 人数内訳テーブルの新規作成
-            $type_id = Type::where('type', $type_list)->value('id'); //タイプ名で検索してidのみを取得
-            $number_of_user->fill(
-                [
-                    'reserve_id' => $reservation->id,
-                    'type_id' => $type_id,
-                    'number_of_person' =>session()->get($type_list)
-                ])->save();
-        }
-        
+            if($sesdata['type_id_'.$i.''] >= 1)
+            {
+                $number_of_user = new \App\Models\NumberOfUser;// 人数内訳テーブルの新規作成
+                $number_of_user->fill(
+                    [
+                        'reserve_id' => $reservation->id,
+                        'type_id' => $i,
+                        'number_of_person' =>session()->get('type_id_'.$i.'')
+                    ])->save();    
+            }
+        }        
         // セッションデータ全削除
         session()->flush();
         return view('reserve.thanks');
