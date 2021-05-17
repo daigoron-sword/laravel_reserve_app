@@ -10,7 +10,6 @@
         <div class="row justify-content-left">
             <div class="col-md-12">
                 {{ Form::open(['url' => '/reserve/fill', 'method' => 'get', 'files' => false]) }}
-                {{ Form::token() }}
                     {{ Session::get('date') }}
                     <!-- お食事選択 -->
                     <div class="form-group pb-3">

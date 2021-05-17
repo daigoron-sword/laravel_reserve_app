@@ -9,15 +9,20 @@
 </head>
 <body>
 <div class="container">
+    @if (session('flash_message'))
+        <div class="flash_message">
+            {{session('flash_message')}}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-center">
                     <a class="btn btn-outline-secondary float-left" href="{{ url('/reserve?date=' . $calendar->getPreviousMonth()) }}">前の月</a>
-					<!-- 現在の年月を表示する独自メソッド -->
-					<span>{{ $calendar->getTitle() }}</span>
-					<a class="btn btn-outline-secondary float-right" href="{{ url('/reserve?date=' . $calendar->getNextMonth()) }}">次の月</a>
-				</div>
+                    <!-- 現在の年月を表示する独自メソッド -->
+                    <span>{{ $calendar->getTitle() }}</span>
+                    <a class="btn btn-outline-secondary float-right" href="{{ url('/reserve?date=' . $calendar->getNextMonth()) }}">次の月</a>
+                </div>
                 <div class="card-body">
                     <!-- カレンダーを出力 -->
                     {!! $calendar->render() !!}
