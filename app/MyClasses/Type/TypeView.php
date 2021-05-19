@@ -1,7 +1,10 @@
 <?php
 namespace App\Myclasses\Type;
 
+use Illuminate\Http\Request;
 use App\Models\type;
+use App\Models\MealPlan;
+use App\Http\Requests\PlanTypeRequest;
 // セッションファサード
 use Session;
 
@@ -93,5 +96,46 @@ class TypeView
 		// 何も入れない文字列連結
 		return implode("", $html);
     }
+
+	function sum_render($request) //金額テーブルの値を渡す
+	{
+		$room_dt = session()->get('room_dt');
+        $meal_plan_dt = MealPlan::find($request->meal_plan_id);
+
+        $types_dt = [];
+        $total_sum = 0;
+        // idを繰り返すためのfor文
+        for($i = 1; $i <= 11; $i++)
+        {
+            $type_num = $request->type_id[$i];
+            if($type_num >= 1)
+            {
+                $type_dt = Type::find($i);
+                if($type_dt->id == 1 || $type_dt->id == 2 || $type_dt->id == 3) //男性、女性、大人の食事を用意する子供だけの計算
+                {
+                    $unit_price = $type_dt->price + $room_dt->price + $meal_plan_dt->price;
+                    $sum = $unit_price * $request->type_id[$i];
+                    $total_sum += $sum;
+                    $types_dt[$i] = [ 
+                        'type' => $type_dt->type,
+                        'price' => $unit_price,
+                        'number' => $type_num,
+                        'sum' => $sum
+                    ];
+                } else{// 食事やお部屋に影響されないタイプの計算
+                    $unit_price = $type_dt->price;
+                    $sum = $unit_price * $request->type_id[$i];
+                    $total_sum += $sum;
+                    $types_dt[$i] = [ 
+                        'type' => $type_dt->type,
+                        'price' => $unit_price,
+                        'number' => $type_num,
+                        'sum' => $sum
+                    ];
+                }
+            }
+        }
+		return ['types_dt' => $types_dt, 'total_sum' => $total_sum];
+	}
 
 }

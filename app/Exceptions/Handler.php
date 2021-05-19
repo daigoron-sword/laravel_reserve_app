@@ -50,13 +50,13 @@ class Handler extends ExceptionHandler
      * @throws \Exception
      */
     public function render($request, Exception $exception)
-    {\
+    {
         if ($exception instanceof TokenMismatchException) //セッションが有効期限切れになった時の処理
         {
             \Session::flash('flash_message', 'セッションが切れました。もう一度最初からお願いします。');
             return redirect()->route('reserve');
         }
 
-        return parent::render($request, $exception,);
+        return parent::render($request, $exception);
     }
 }

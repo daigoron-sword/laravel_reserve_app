@@ -8,6 +8,38 @@
 <body>
   <div class="container">
     <h1>入力フォーム</h1>
+      <h2>プラン情報</h2>
+        <dl class="row">
+          <dt class="col-2">プラン</dt>
+            <dd class="col-10">{{$sesdata['meal_plan_dt']['name']}} </dd>   
+          <dt class="col-2">お部屋</dt>
+            <dd class="col-10">{{$sesdata['room_dt']['name']}} </dd>
+          <dt class="col-2">宿泊日</dt>
+            <dd class="col-10">{{$sesdata['date']}} </dd>   
+        </dl>
+      <h2>予約内容の確認</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">内訳</th>
+              <th scope="col">単価</th>
+              <th scope="col">人数</th>
+              <th scope="col">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($types_dt as $type_dt)
+            <tr>
+              <td>{{$type_dt['type']}}</td>
+              <td>{{$type_dt['price']}}円</td>
+              <td>{{$type_dt['number']}}人</td>
+              <td>{{$type_dt['sum']}}円</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        <p>合計金額　{{$total_sum}}円 </p>
+
       {{ Form::open(['url' => '/reserve/check', 'method' => 'post', 'files' => false,]) }}
       {{ Form::token() }}
         <!-- 名前 -->

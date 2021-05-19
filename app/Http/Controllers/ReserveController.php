@@ -60,14 +60,21 @@ class ReserveController extends Controller
 
     public function fill(PlanTypeRequest $request)
     {
+        $meal_plan_dt = MealPlan::find($request->meal_plan_id);
+        session(['meal_plan_dt' => $meal_plan_dt ]);
+
         // idを繰り返すためのfor文
         for($i = 1; $i <= 11; $i++)
         {
             session(['type_id_' . $i .'' => $request->type_id[$i]]); // type_id配列にしてそれぞれに値をsessionに保存
         }
-        $meal_plan_dt = MealPlan::find($request->meal_plan_id);
-        session(['meal_plan_dt' => $meal_plan_dt ]);
-        return view('reserve.fill');
+
+        $dt = new TypeView();
+        $sum_render = $dt->sum_render($request);
+        $types_dt = $sum_render['types_dt']; //金額テーブルの値
+        $total_sum = $sum_render['total_sum'];//総合計金額
+        $sesdata = session()->all();
+        return view('reserve.fill', ['sesdata' => $sesdata, 'types_dt' => $types_dt, 'total_sum' => $total_sum]);
     }
 
     public function check(ReserveRequest $request) //バリデーションルール使用
