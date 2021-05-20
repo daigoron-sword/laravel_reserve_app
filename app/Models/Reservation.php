@@ -28,5 +28,10 @@ class Reservation extends Model
     {
         return $this->hasmany('App\Models\NumberOfUser');
     }
+    public function room()
+    {
+        return $this->belongsTo('App\Models\Room');
+    }
+
 
 }

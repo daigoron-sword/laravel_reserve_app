@@ -23,7 +23,7 @@ class CreateCustomersTable extends Migration
             $table->string('postal');
             $table->string('prefectures');
             $table->string('city');
-            $table->string('building');
+            $table->string('building')->nullable();
             $table->string('tel');
             $table->timestamps();
         });
