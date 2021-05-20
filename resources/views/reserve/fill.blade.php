@@ -178,14 +178,6 @@
         @enderror
           {{Form::tel('tel', old('tel'), ['placeholder' => '（例）12345678900', 'min' => 0, 'class' => 'form-control'])}}
         </div>
-        <!-- 宿泊数（未開発部分なので値を入れるだけ） -->
-        <div class="form-group">
-          {{Form::label('number_of_stay', '宿泊数')}}
-        @error('number_of_stay')
-          <p>{{$message}}</p> 
-        @enderror
-          {{Form::select('number_of_stay', ['1' => '1拍', '2' => '2拍', '3' => '3拍'], '1', ['class' => 'form-control'])}}
-        </div>
         <!-- 交通手段 -->
         <div class="form-group">
           {{Form::label('transportation', '交通手段')}}<small>（必須）</small>

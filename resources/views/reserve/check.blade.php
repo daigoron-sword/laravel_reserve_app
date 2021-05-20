@@ -40,8 +40,6 @@
               <dd class="col-md-10"><p>{{ $sesdata['building'] }}</p></dd>
             <dt class="col-md-2">電話番号</dt>
               <dd class="col-md-10"><p>{{ $sesdata['tel'] }}</p></dd>
-            <dt class="col-md-2">宿泊数</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['number_of_stay'] }}</p></dd>
             <dt class="col-md-2">交通手段</dt>
               <dd class="col-md-10"><p>{{ $sesdata['transportation'] }}</p></dd>
             <dt class="col-md-2">チェックイン時間</dt>

@@ -22,7 +22,6 @@ class CreateReservationsTable extends Migration
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('meal_plan_id')->references('id')->on('meals_plans');
             $table->date('reserved_on');
-            $table->integer('number_of_stay');
             $table->string('transportation')->nullable();
             $table->time('check_in_time');
             $table->text('request')->nullable();
