@@ -93,7 +93,6 @@ class ReserveController extends Controller
             'building' => $request->building,
             'tel' => $request->tel,
             'reserved_on' => $request->reserved_on,
-            'number_of_stay' => $request->number_of_stay,
             'transportation' => $request->transportation,
             'check_in_time' => $request->check_in_time,
             'requests' => $request->requests,
