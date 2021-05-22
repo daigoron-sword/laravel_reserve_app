@@ -17,4 +17,9 @@ class CalendarWeekBlankDay extends CalendarWeekDay {
 		return '';
 	}
 
+	function ReservedOn()
+	{
+		return '';
+	}
+
 }

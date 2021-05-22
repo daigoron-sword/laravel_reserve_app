@@ -16,7 +16,7 @@
                         @error('room_id')
                             <p>{{$message}}</p> 
                         @enderror
-                        {{ Form::select('room_id', App\Models\Room::select_room_list(), '選択してください', ['class' => 'form-control','id' => 'room']) }}
+                        {{ Form::select('room_id', App\Models\Room::select_room_list(Session::get('date')), '選択してください', ['class' => 'form-control','id' => 'room']) }}
                     </div>
                     <!-- /お部屋選択 -->
                     <!-- 送信ブロック -->

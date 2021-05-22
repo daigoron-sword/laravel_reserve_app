@@ -21,16 +21,10 @@ class CalendarWeekDay {
 	function render(){
 		return '<p class="day">' . $this->carbon->format("j"). '</p>';
     }
-
-    //aタグ挿入用の年月
-	public function date()
-	{
-		return $this->carbon->format('Y-n-d');
-    }
-
-	function getReservedOn()
+    
+	function ReservedOn() //残りの部屋数を出力
     {
-		$day = $this->carbon->format('Y-n-d'); //カレンダーの日にちの出力
+		$day = $this->carbon->format('Y-m-d'); //カレンダーの日にちの出力
 		$room_dts = Room::all();
         $room_c = count($room_dts); //全ての部屋数
 		
@@ -51,13 +45,12 @@ class CalendarWeekDay {
             } else
             {
 				$sum = $room_c - $date_c[$day];
-                // return '残り'.$sum.'部屋'; //残りの部屋数を出力
-                return 'ぷりぷり'; //残りの部屋数を出力
+                return '<a href="/reserve/rooms?date=' . $day . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
             }
         }else //存在していなければ
         {
             // return '残り'.$room_c.'部屋'; //全ての部屋数を出力
-            return 'ぶりぶり'; //全ての部屋数を出力
+            return '<a href="/reserve/rooms?date=' . $day . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
         }
     }
 }	

@@ -43,7 +43,7 @@ class CalendarWeek {
 			}
 				
 			//今月
-			$day = new CalendarWeekDay($tmpDay->copy());	
+			$day = new CalendarWeekDay($tmpDay->copy());
 			$days[] = $day;
 			//翌日に移動
 			$tmpDay->addDay(1);
