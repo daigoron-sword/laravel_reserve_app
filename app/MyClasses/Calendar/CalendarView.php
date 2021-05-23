@@ -61,8 +61,6 @@ class CalendarView
 			$days = $week->getDays();
 			foreach($days as $day){
 				$html[] = '<td class="'.$day->getClassName().'">';
-				// $html[] = '<a href="/reserve/rooms?date=' . $day->date() . '">' . $day->render();
-				// $html[] = $day->date();
 				$html[] = $day->render();
 				$html[] = $day->ReservedOn();
 				$html[] = '</td>';

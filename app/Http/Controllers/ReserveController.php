@@ -15,6 +15,7 @@ use App\Models\NumberOfuser;
 use Session;
 use App\Http\Requests\ReserveRequest;
 use App\Http\Requests\PlanTypeRequest;
+use Carbon\Carbon;
 
 
 
@@ -22,35 +23,6 @@ class ReserveController extends Controller
 {
     public function index(Request $request)
     {
-        // $room_dts = Room::all();
-        // $room_c = count($room_dts); //全ての部屋数
-        
-        // foreach($room_dts as $room_dt) //部屋データの繰り返し
-        // {
-        //     $reservations = $room_dt->reservations; //リレーションでreservationsのデータを取り出し
-        //     foreach($reservations as $reservation)
-        //     {
-        //         return dump($reservation);
-        //         $date[] = $reservation['reserved_on'];//全ての予約日を取得
-        //     }    
-        // }
-        // $date_c = array_count_values($date); //それぞれの予約日をキーに、日にちのカウントを値にする
-        // if(array_key_exists('2021-05-28', $date_c))  //指定した日にちが、$date_cのキーに存在していたら
-        // {
-        //     if($date_c['2021-05-28'] == $room_c) //予約日の数と全部屋数が一緒なら
-        //     {
-        //         return dump('満室');
-        //     } else
-        //     {
-        //         $i = $room_c - $date_c['2021-05-28'];
-        //         return dump($i); //残りの部屋数を出力
-        //     }
-        // }else //存在していなければ
-        // {
-        //     return dump($room_c); //全ての部屋数を出力
-        // }
-        // return dump($date_c);
-
         //クエリーのdateを受け取る
         $date = $request->input('date');
 
@@ -73,6 +45,14 @@ class ReserveController extends Controller
 
     public function select_room(Request $request)
     {
+        $now = Carbon::now(); //現在のタイムスタンプ
+        $date = new Carbon($request->date); //予定日をもとにカーボンインスタンス作成
+        if($date ->lt($now)) //出力する日が現在よりも前なら
+        {
+            return redirect()->route('reserve'); //カレンダーへリダイレクト
+        }
+
+
         session(['date' => $request->date ]);
         return view('reserve.rooms');
     }
@@ -103,7 +83,12 @@ class ReserveController extends Controller
         $sum_render = $dt->sum_render($request);
         $types_dt = $sum_render['types_dt']; //金額テーブルの値
         $total_sum = $sum_render['total_sum'];//総合計金額
+        session([
+            'types_dt' => $types_dt,
+            'total_sum' => $total_sum
+        ]);
         $sesdata = session()->all();
+        // return dump($sesdata['types_dt']);
         return view('reserve.fill', ['sesdata' => $sesdata, 'types_dt' => $types_dt, 'total_sum' => $total_sum]);
     }
 

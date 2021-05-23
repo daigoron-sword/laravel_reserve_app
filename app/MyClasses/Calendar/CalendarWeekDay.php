@@ -24,7 +24,14 @@ class CalendarWeekDay {
     
 	function ReservedOn() //残りの部屋数を出力
     {
-		$day = $this->carbon->format('Y-m-d'); //カレンダーの日にちの出力
+		$day_r = $this->carbon->format('Y-m-d'); //カレンダーの日にちの出力
+        $day = $this->carbon; //カレンダー日付
+        $now = Carbon::now(); //現在
+        if($day ->lt($now)) //出力する日が現在よりも前なら
+        {
+            return '-';
+        }
+        // $nowt = $now->getTimestamp();
 		$room_dts = Room::all();
         $room_c = count($room_dts); //全ての部屋数
 		
@@ -37,20 +44,20 @@ class CalendarWeekDay {
             }    
         }
         $date_c = array_count_values($dates); //それぞれの予約日をキーに、日にちのカウントを値にする
-        if(array_key_exists($day, $date_c))  //指定した日にちが、$date_cのキーに存在していたら
+        if(array_key_exists($day_r, $date_c))  //指定した日にちが、$date_cのキーに存在していたら
         {
-            if($date_c[$day] == $room_c) //予約日の数と全部屋数が一緒なら
+            if($date_c[$day_r] == $room_c) //予約日の数と全部屋数が一緒なら
             {
                 return '満室';
             } else
             {
-				$sum = $room_c - $date_c[$day];
-                return '<a href="/reserve/rooms?date=' . $day . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
+				$sum = $room_c - $date_c[$day_r];
+                return '<a href="/reserve/rooms?date=' . $day_r . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
             }
         }else //存在していなければ
         {
             // return '残り'.$room_c.'部屋'; //全ての部屋数を出力
-            return '<a href="/reserve/rooms?date=' . $day . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
+            return '<a href="/reserve/rooms?date=' . $day_r . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
         }
     }
 }	

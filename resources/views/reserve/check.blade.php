@@ -50,7 +50,28 @@
               <dd class="col-md-10"><p>{{ $sesdata['requests'] }}</p></dd>
           </dl>
           <!-- 利用人数 -->
-          {!! $type_view->check_render() !!}
+          <h2>金額の確認</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">内訳</th>
+                  <th scope="col">単価</th>
+                  <th scope="col">人数</th>
+                  <th scope="col">金額</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($sesdata['types_dt'] as $type_dt)
+                <tr>
+                  <td>{{$type_dt['type']}}</td>
+                  <td>{{$type_dt['price']}}円</td>
+                  <td>{{$type_dt['number']}}人</td>
+                  <td>{{$type_dt['sum']}}円</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            <p>合計金額　{{$sesdata['total_sum']}}円 </p>
           {{ Form::submit('予約完了', ['class'=>'btn btn-primary btn-block']) }}
         {{ Form::close() }}
     </div>

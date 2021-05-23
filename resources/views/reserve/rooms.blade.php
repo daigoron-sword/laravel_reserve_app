@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
-                {{ Form::open(['url' => '/reserve/meals_plans', 'method' => 'get', 'files' => false]) }}
+                {{ Form::open(['url' => '/reserve/meals_plans', 'method' => 'post', 'files' => false]) }}
                     <!-- お部屋選択 -->
                     <div class="form-group pb-3">
                         {{ Form::label('room_id','お部屋選択') }}
