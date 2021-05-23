@@ -11,26 +11,29 @@ class Room extends Model
 
     public static function select_room_list($date)
     {
-        $reservation_dts = Reservation::where(function ($query) use ($date) {
-            $query->where('reserved_on', $date);
-        })->get();
-        // return dump($reservation_dts);
+        $reservation_dts = Reservation::where('reserved_on', $date)->get();//予約予定日の予約データを全権取得
         $i = 1;
         foreach($reservation_dts as $reservation_dt)
         {
-            $room_id[$i] = $reservation_dt->room_id;
-            $i++;
+                $room_id[$i] = $reservation_dt->room_id;// 各予約日のroom_idを連想配列で取得
+                $i++;
         }
-
         $rooms = Room::all();
         $room_list = [];
         $room_list[""] = "選択してください";
         foreach ($rooms as $room) 
         {
-            if (!array_search($room->id, $room_id)){
+            if(isset($room_id))
+            {
+                if (!array_search($room->id, $room_id)){ //各部屋に対して予約がされてなければ
+                    // バリュー属性にID、表示はroom_nameを表示
+                    $room_list[$room->id] = $room->name;
+                }
+            }else{// 予約がいっさいなければ全権表示
                 // バリュー属性にID、表示はroom_nameを表示
                 $room_list[$room->id] = $room->name;
-            }   
+
+            }
         }
         return $room_list;
     }
