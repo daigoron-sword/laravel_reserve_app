@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
-    <title>予約</title>
+    <title>予約管理</title>
 </head>
 <body>
-    <p>test</p>
+    <h1>予約管理画面</h1>
+        {!! $management->render() !!} 
 </body>
 </html>
