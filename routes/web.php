@@ -24,3 +24,5 @@ Route::post('/reserve/fill', 'ReserveController@fill')->name('reserve.fill');
 Route::post('/reserve/check', 'ReserveController@check')->name('reserve.check');
 Route::post('/reserve/thanks', 'ReserveController@thanks');
 
+Route::get('/management', 'ManagementController@lodging_management')->name('management');
+
