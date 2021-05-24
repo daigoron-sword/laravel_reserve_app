@@ -45,15 +45,8 @@ class ReserveController extends Controller
 
     public function select_room(Request $request)
     {
-        $now = Carbon::now(); //現在のタイムスタンプ
-        $date = new Carbon($request->date); //予定日をもとにカーボンインスタンス作成
-        if($date ->lt($now)) //出力する日が現在よりも前なら
-        {
-            return redirect()->route('reserve'); //カレンダーへリダイレクト
-        }
-
-
-        session(['date' => $request->date ]);
+        $date = decrypt($request->date); //日にちを複合化
+        session(['date' => $date ]);
         return view('reserve.rooms');
     }
 
