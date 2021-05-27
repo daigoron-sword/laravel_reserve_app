@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Myclasses\Management\ManagementView;
+
 
 class ManagementController extends Controller
 {
-   public function lodging_management()
+   public function reserve_management(Request $request)
    {
-        return view('management.index');
+      $management = new ManagementView();
+      return view('management.index', ['management' => $management]);
    }
 }
