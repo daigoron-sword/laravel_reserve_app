@@ -13,18 +13,14 @@ class Reservation extends Model
     // 従テーブル側のリレーション
     public function customer()
     {
-        return $this->belongsTo('App\Models\Csutomer');
-    }
-    public function type()
-    {
-        return $this->belongsTo('App\Models\Room');
+        return $this->belongsTo('App\Models\Customer');
     }
     public function mealPlan()
     {
         return $this->belongsTo('App\Models\MealPlan');
     }
     // 主テーブルのリレーション
-    public function numberOfUsers()
+    public function NumberOfUser()
     {
         return $this->hasmany('App\Models\NumberOfUser');
     }

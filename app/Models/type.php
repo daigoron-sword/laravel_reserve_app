@@ -22,7 +22,7 @@ class Type extends Model
     }
 
     // 主テーブルのリレーション
-    public function numberOfUsers()
+    public function numberOfUser()
     {
         return $this->hasmany('App\Models\NumberOfUser');
     }
