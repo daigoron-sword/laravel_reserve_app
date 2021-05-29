@@ -24,6 +24,7 @@ class ManagementView
 		$html[] = '<th scope="col">代表者名</th>';
 		$html[] = '<th scope="col">電話番号</th>';
 		$html[] = '<th scope="col">部屋</th>';
+		$html[] = '<th scope="col">プラン</th>';
 		$html[] = '<th scope="col">合計金額</th>';
 		$html[] = '<th scope="col">編集/削除</th>';
 		$html[] = '</tr>';
@@ -47,7 +48,10 @@ class ManagementView
             $html[] = $reservation->customer->tel; //電話番号
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $reservation->room->name; //部屋
+            $html[] = $this->room_edit_a($reservation); //部屋
+            $html[] = '</td>';
+            $html[] = '<td>';
+            $html[] = $reservation->mealPlan->name; //プラン
             $html[] = '</td>';
             $html[] = '<td>';
             $html[] = $this->getSumPrice($reservation); //合計金額
@@ -105,10 +109,17 @@ class ManagementView
         $sum = array_sum($user);
         return $sum;
     }
-
+/**
+ * aタグ出力
+ */
     protected function edit_a($reserve_id)
     {
         return '<a href="'.action('ManagementController@edit', $reserve_id).' ">編集</a>';
+    }
+
+    protected function room_edit_a($reservation)
+    {
+        return '<a href="'.action('ManagementController@editRoom', $reservation->id).' ">'.$reservation->room->name.'</a>';
     }
 
 }
