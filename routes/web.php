@@ -24,7 +24,9 @@ Route::post('/reserve/fill', 'ReserveController@fill')->name('reserve.fill');
 Route::post('/reserve/check', 'ReserveController@check')->name('reserve.check');
 Route::post('/reserve/thanks', 'ReserveController@thanks');
 
-Route::get('/management', 'ManagementController@reserve_management')->name('management');
+Route::get('/management', 'ManagementController@reserveManagement')->name('management');
+Route::get('/management/editRoom/{id}', 'ManagementController@editRoom')->name('editRoom');
+Route::post('/management/editRoom/{id}', 'ManagementController@finishRoom')->name('finishRoom');
 Route::get('/management/edit/{id}', 'ManagementController@edit')->name('edit');
 
 
