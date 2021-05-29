@@ -27,7 +27,7 @@ class ManagementView
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
 
-        $reservations = Reservation::all();
+        $results = Reservation::with(['mealPlan', 'room'])->get();
         foreach($reservations as $reservation)
         {
             $html[] = '<tr>';
