@@ -34,7 +34,33 @@ class ManagementController extends Controller
       $reservation = Reservation::find($request->id);
       $reservation->room_id = $request->room_id;
       $reservation->save();
-      // return redirect()->route('editRoom', ['reservation' => $reservation]);
-      return view('management.editRoom', ['reservation' => $reservation]);
+      $id = $reservation->id;
+      return redirect()->route('editRoom', ['id' => $id])->with('status', 'お部屋を変更しました！');
    }
+
+   public function editPlan(Request $request)
+   {
+      $reservation = Reservation::find($request->id);
+      return view('management.editPlan', ['reservation' => $reservation]);
+   }
+
+   public function finishPlan(Request $request)
+   {
+      $validate_rule =['meal_plan_id' => 'required']; //；部屋選択のバリデーションルール
+      $this->validate($request, $validate_rule);
+      $reservation = Reservation::find($request->id);
+      $reservation->meal_plan_id = $request->meal_plan_id;
+      $reservation->save();
+      $id = $reservation->id;
+      return redirect()->route('editPlan', ['id' => $id])->with('status', 'お部屋を変更しました！');
+   }
+
+   public function deleteReserve(Request $request)
+   {
+      $reservation = Reservation::with('customer')->find($request->id);
+      return view('management.deleteReserve', ['reservation' => $reservation]);
+   }
+
+
+
 }

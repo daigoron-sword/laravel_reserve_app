@@ -26,7 +26,7 @@ class ManagementView
 		$html[] = '<th scope="col">部屋</th>';
 		$html[] = '<th scope="col">プラン</th>';
 		$html[] = '<th scope="col">合計金額</th>';
-		$html[] = '<th scope="col">編集/削除</th>';
+		$html[] = '<th scope="col">削除</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
@@ -48,16 +48,16 @@ class ManagementView
             $html[] = $reservation->customer->tel; //電話番号
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $this->room_edit_a($reservation); //部屋
+            $html[] = $this->editRoomA($reservation); //部屋
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $reservation->mealPlan->name; //プラン
+            $html[] = $this->editPlanA($reservation); //プラン
             $html[] = '</td>';
             $html[] = '<td>';
             $html[] = $this->getSumPrice($reservation); //合計金額
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $this->edit_a($reservation->id); //削除できるようにaタグを生成
+            $html[] = $this->deleteReserveA($reservation); //削除できるようにaタグを生成
             $html[] = '</td>';
             $html[] = '</tr>';
         }
@@ -112,14 +112,19 @@ class ManagementView
 /**
  * aタグ出力
  */
-    protected function edit_a($reserve_id)
+    protected function editRoomA($reservation)
     {
-        return '<a href="'.action('ManagementController@edit', $reserve_id).' ">編集</a>';
+        return '<a href="'.route('editRoom', ['id' => $reservation->id]).' ">'.$reservation->room->name.'</a>';
     }
 
-    protected function room_edit_a($reservation)
+    protected function editPlanA($reservation)
     {
-        return '<a href="'.action('ManagementController@editRoom', $reservation->id).' ">'.$reservation->room->name.'</a>';
+        return '<a href="'.route('editPlan', ['id' => $reservation->id]).' ">'.$reservation->mealPlan->name.'</a>';
+    }
+
+    protected function deleteReserveA($reservation)
+    {
+        return '<a href="'.route('deleteReserve', ['id' => $reservation->id]).' ">削除</a>';
     }
 
 }

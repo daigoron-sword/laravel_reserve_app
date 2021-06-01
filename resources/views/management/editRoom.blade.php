@@ -8,7 +8,13 @@
 </head>
 <body>
     <h1>部屋の変更</h1>
+        @if(session('status'))
+            <div class="alert aler-saccsess">
+                {{session('status')}}
+            </div>
+        @endif
         <p>現在の部屋は{{$reservation->room->name}}です。</p>
+        <p><a href="{{route('management')}}">予約管理画面へ戻る</a></p>
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
