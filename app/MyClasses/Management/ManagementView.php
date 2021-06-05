@@ -31,7 +31,8 @@ class ManagementView
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
 
-        $reservations = Reservation::with(['mealPlan', 'room'])->get();
+        $today = date('Y-m-d');
+        $reservations = Reservation::with(['mealPlan', 'room'])->where('reserved_on', '>=', $today)->get();
         foreach($reservations as $reservation)
         {
             $html[] = '<tr>';
@@ -54,7 +55,7 @@ class ManagementView
             $html[] = $this->editPlanA($reservation); //プラン
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $this->getSumPrice($reservation); //合計金額
+            $html[] = $reservation->sum; //合計金額
             $html[] = '</td>';
             $html[] = '<td>';
             $html[] = $this->deleteReserveA($reservation); //削除できるようにaタグを生成
@@ -76,8 +77,8 @@ class ManagementView
         $number_of_users = NumberOfUser::with('type')->where('reserve_id', $reservation->id)->get();
         foreach($number_of_users as $number_of_user)
         {
-           //合計金額の計算
-           if($number_of_user->type_id == 1 || $number_of_user->type_id == 2 || $number_of_user->type_id == 3) //もしtype_idが1,2,3なら
+            //合計金額の計算
+            if($number_of_user->type_id == 1 || $number_of_user->type_id == 2 || $number_of_user->type_id == 3) //もしtype_idが1,2,3なら
             {
                 if($number_of_user->type_id == 1 || $number_of_user->type_id == 2 ) //もしtype_idが1,2なら
                 {
@@ -85,7 +86,7 @@ class ManagementView
                 }
                 if($number_of_user->type_id == 3)//もしtype_idが３なら
                 {
-                    $price[] = ($reservation->room->price + $reservation->mealPlan->price) * $number_of_user->numeber_of_person - ($number_of_user->type->price * $number_of_user->number_of_person); //（部屋の値段＋食事プランの値段）* 人数 - （typeのprice * 人数）
+                    $price[] = ($reservation->room->price + $reservation->mealPlan->price) * $number_of_user->number_of_person + ($number_of_user->type->price * $number_of_user->number_of_person); //（部屋の値段＋食事プランの値段）* 人数 - （typeのprice * 人数）
                 }
             
             } else //もしtype_idが1,2,3以外なら

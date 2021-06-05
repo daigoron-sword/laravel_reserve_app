@@ -20,6 +20,12 @@
                 {{ Form::open(['url' => '/management/deleteReserve/$reservation->id', 'method' => 'post', 'files' => false]) }}
                 {{ Form::token() }}
                 {{Form::hidden('id', $reservation->id)}}
+                <dl clss="row">
+                    <dt class="col-md-2">予約日</dt>
+                        <dd class="col-md-10">{{$reservation->reserved_on}}</dd>
+                    <dt class="col-md-2">代表者名</dt>
+                        <dd class="col-md-10">{{$reservation->customer->name}}</dd>
+                </dl>
                     <!-- 送信ブロック -->
                     <div class="form-group row">
                         <div class="col-sm-12">

@@ -44,16 +44,23 @@ class CalendarWeekDay {
 				$dates[] = $reservation['reserved_on'];//全ての予約日を取得
             }    
         }
-        $date_c = array_count_values($dates); //それぞれの予約日をキーに、日にちのカウントを値にする
-        if(array_key_exists($day_r, $date_c))  //指定した日にちが、$date_cのキーに存在していたら
+        if(isset($dates)) //予約テーブルに一つもデータがない場合の対処
         {
-            if($date_c[$day_r] == $room_c) //予約日の数と全部屋数が一緒なら
+            $date_c = array_count_values($dates); //それぞれの予約日をキーに、日にちのカウントを値にする
+            if(array_key_exists($day_r, $date_c))  //指定した日にちが、$date_cのキーに存在していたら
             {
-                return '満室';
-            } else
+                if($date_c[$day_r] == $room_c) //予約日の数と全部屋数が一緒なら
+                {
+                    return '満室';
+                } else
+                {
+                    $sum = $room_c - $date_c[$day_r];
+                    return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
+                }
+            }else //存在していなければ
             {
-				$sum = $room_c - $date_c[$day_r];
-                return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
+                // return '残り'.$room_c.'部屋'; //全ての部屋数を出力
+                return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
             }
         }else //存在していなければ
         {

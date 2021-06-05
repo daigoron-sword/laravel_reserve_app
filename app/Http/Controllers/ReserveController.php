@@ -82,7 +82,7 @@ class ReserveController extends Controller
         ]);
         $sesdata = session()->all();
         // return dump($sesdata['types_dt']);
-        return view('reserve.fill', ['sesdata' => $sesdata, 'types_dt' => $types_dt, 'total_sum' => $total_sum]);
+        return view('reserve.fill', ['sesdata' => $sesdata, 'types_dt' => $types_dt]);
     }
 
     public function check(ReserveRequest $request) //バリデーションルール使用
@@ -147,6 +147,7 @@ class ReserveController extends Controller
             'check_in_time' => $sesdata['check_in_time'],
             'request' => $sesdata['requests'],
             'dinner_start_time' => $sesdata['dinner_start_time'],
+            'sum' => $sesdata['total_sum'],
         ])->save();
 
         for($i = 1; $i <= 11; $i++)

@@ -18,7 +18,7 @@ class CreateReservationsTable extends Migration
             $table->integer('customer_id')->unsigned();
             $table->integer('room_id')->unsigned();
             $table->integer('meal_plan_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('meal_plan_id')->references('id')->on('meals_plans');
             $table->date('reserved_on');
@@ -26,6 +26,7 @@ class CreateReservationsTable extends Migration
             $table->time('check_in_time');
             $table->text('request')->nullable();
             $table->time('dinner_start_time');
+            $table->integer('sum');
             $table->timestamps();
         });
     }

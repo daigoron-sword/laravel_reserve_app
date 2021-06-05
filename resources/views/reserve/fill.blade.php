@@ -38,7 +38,7 @@
             @endforeach
           </tbody>
         </table>
-        <p>合計金額　{{$total_sum}}円 </p>
+        <p>合計金額　{{$sesdata['total_sum']}}円 </p>
 
       {{ Form::open(['url' => '/reserve/check', 'method' => 'post', 'files' => false,]) }}
       {{ Form::token() }}

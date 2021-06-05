@@ -30,5 +30,6 @@ Route::post('/management/editRoom/{id}', 'ManagementController@finishRoom')->nam
 Route::get('/management/editPlan/{id}', 'ManagementController@editPlan')->name('editPlan');
 Route::post('/management/editPlan/{id}', 'ManagementController@finishPlan')->name('finishPlan');
 Route::get('/management/deleteReserve/{id}', 'ManagementController@deleteReserve')->name('deleteReserve');
-
+Route::post('/management/deleteReserve/{id}', 'ManagementController@removeReserve')->name('removeReserve');
+Route::get('/management/salesChart', 'ManagementController@salesChart')->name('salesChart');
 
