@@ -82,6 +82,27 @@ class ManagementController extends Controller
     */
    public function salesChart(Request $request)
    {
+      /**
+       * 試験運用
+      */
+      $date = $request->date;
+
+      if($date && preg_match('/^[0-9]{4}-{0-9]{2}$/', $date)){
+         $date = strtotime($date. '-01');
+      }else{
+         $date = null;
+      }
+
+      // 取得できないときは現在を指定
+      if(!$date)$date = time();
+
+      $sales_chart = new SalesChart($date);
+      return view('management.salesChart', ['sales_chart' =>  $sales_chart]);
+
+
+
+
+
       $target_days = [
          '2021-06',
          '2021-07',
