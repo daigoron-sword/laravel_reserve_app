@@ -14,7 +14,7 @@ class CalendarView
 	/**
 	 * タイトル
 	 */
-	// 現在の年月を表示させるためのメソッド
+	// 現在の年月を表示させる
 	public function getTitle(){
 		return $this->carbon->format('Y年n月');
 	}

@@ -32,7 +32,6 @@ class CalendarWeekDay {
         {
             return '-';
         }
-        // $nowt = $now->getTimestamp();
 		$room_dts = Room::all();
         $room_c = count($room_dts); //全ての部屋数
 		

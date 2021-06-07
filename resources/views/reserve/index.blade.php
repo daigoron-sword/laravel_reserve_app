@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header text-center">
                     <a class="btn btn-outline-secondary float-left" href="{{ url('/reserve?date=' . $calendar->getPreviousMonth()) }}">前の月</a>
-                    <!-- 現在の年月を表示する独自メソッド -->
+                    <!-- 現在の年月を表示するメソッド -->
                     <span>{{ $calendar->getTitle() }}</span>
                     <a class="btn btn-outline-secondary float-right" href="{{ url('/reserve?date=' . $calendar->getNextMonth()) }}">次の月</a>
                 </div>
