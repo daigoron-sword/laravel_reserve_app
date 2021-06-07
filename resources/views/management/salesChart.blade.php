@@ -11,8 +11,8 @@
     <h1>売上グラフ</h1>
     <div class="card">
         <div class="card-header text-center">
-            <a class="btn btn-outline-secondary foloat-left" href="{{url('/?date=' . $sales_chart->getPreviousMonth()) }}">前の月にずれる</a>
-            <a class="btn btn-outline-secondary foloat-right" href="{{url('/?date=' . $sales_chart->subPreviousMonth()) }}">次の月にずれる</a>      
+            <a class="btn btn-outline-secondary foloat-left" href="{{url('/management/salesChart?date=' . $sales_chart->getPreviousMonth()) }}">前の月にずれる</a>
+            <a class="btn btn-outline-secondary foloat-right" href="{{url('/management/salesChart?date=' . $sales_chart->getNextMonth()) }}">次の月にずれる</a>      
         </div>
         <div class="card-body">
             <canvas id="salesChart"></canvas>
@@ -20,10 +20,10 @@
                 <!-- グラフを描画 -->
                 <script>
                     // ラベル
-                    var labels = @json($label);
+                    var labels = @json($sales_chart->getLabels());
 
                     // 売上
-                    var sale_log = @json($sale_log);
+                    var sale_log = @json($sales_chart->getSalesChartLogData());
 
                     //グラフを描画
                     var ctx = document.getElementById("salesChart");   
@@ -42,7 +42,7 @@
                         options: {
                             title: {
                                 display: true,
-                                text: '売上（5か月）'
+                                text: '売上（1年）'
                             },
                             scales:{
                                 yAxes:[{
