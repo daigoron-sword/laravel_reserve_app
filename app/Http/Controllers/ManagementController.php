@@ -91,7 +91,8 @@ class ManagementController extends Controller
       $date = $request->input('date');
 
       if($date && preg_match('/^[0-9]{4}-{0-9]{2}$/', $date)){
-         $date = date('Y-m-d' ,strtotime($date. '-01'));
+         // $date = date('Y-m-d' ,strtotime($date. '-01'));
+         $date = strtotime($date . "-01");
       }else{
          $date = null;
       }
@@ -100,6 +101,8 @@ class ManagementController extends Controller
       if(!$date)$date = time();
 
       $sales_chart = new SalesChart($date);
+      // $i  = $sales_chart->getPreviousMonth();
+      // return dump($i);
       return view('management.salesChart', ['sales_chart' =>  $sales_chart]);
 
 

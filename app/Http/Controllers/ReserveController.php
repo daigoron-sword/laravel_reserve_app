@@ -24,17 +24,23 @@ class ReserveController extends Controller
     public function index(Request $request)
     {
         //クエリーのdateを受け取る
-        $date = $request->input('date');
+        $date = $request->input("date");
 
         //dateがYYYY-MMの形式化どうか判定する
 		if($date && preg_match("/^[0-9]{4}-[0-9]{2}$/", $date)){
-			$date = strtotime($date . '-01');
+			$date = strtotime($date . "-01");
 		}else{
 			$date = null;
         }
         
         //取得できないときは現在（=今日）を指定
         if(!$date)$date = time();
+
+        // $i = date('Y-m-d', $date);
+
+        // return dump($i);
+
+
 
         //カレンダーに渡す
         $calendar = new CalendarView($date);
