@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class SalesChart
 {
-    protected $carbon;
+    private $carbon;
 
     function __construct($date)
     {

@@ -8,8 +8,6 @@ use App\Myclasses\Chart\SalesChart;
 use App\Models\Reservation;
 use App\Models\Customer;
 
-use Carbon\Carbon;
-
 
 class ManagementController extends Controller
 {
@@ -85,54 +83,18 @@ class ManagementController extends Controller
     */
    public function salesChart(Request $request)
    {
-      /**
-       * 試験運用
-      */
       $date = $request->input('date');
 
-      if($date && preg_match('/^[0-9]{4}-{0-9]{2}$/', $date)){
-         // $date = date('Y-m-d' ,strtotime($date. '-01'));
+      if($date && preg_match("/^[0-9]{4}-[0-9]{2}$/", $date)){
          $date = strtotime($date . "-01");
       }else{
          $date = null;
       }
-
       // 取得できないときは現在を指定
       if(!$date)$date = time();
 
       $sales_chart = new SalesChart($date);
-      // $i  = $sales_chart->getPreviousMonth();
-      // return dump($i);
       return view('management.salesChart', ['sales_chart' =>  $sales_chart]);
-
-
-
-
-
-      // $target_days = [
-      //    '2021-06',
-      //    '2021-07',
-      //    '2021-08',
-      //    '2021-09',
-      //    '2021-10',
-      // ];
-
-      // foreach($target_days as $date)
-      // {
-      //    $class = new SalesChart();
-      //    $sale = $class->getSalesChartLogData($date);
-      //    $sale_log[] = $sale;
-      // }
-      // return view('management.salesChart', [
-      //    'label' => [
-      //       '2021年6月',
-      //       '2021年7月',
-      //       '2021年8月',
-      //       '2021年9月',
-      //       '2021年10月',
-      //    ],
-      //    'sale_log' => $sale_log
-      // ]);
    }
 
 

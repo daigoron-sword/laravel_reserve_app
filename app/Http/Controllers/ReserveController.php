@@ -32,14 +32,8 @@ class ReserveController extends Controller
 		}else{
 			$date = null;
         }
-        
         //取得できないときは現在（=今日）を指定
         if(!$date)$date = time();
-
-        // $i = date('Y-m-d', $date);
-
-        // return dump($i);
-
 
 
         //カレンダーに渡す
