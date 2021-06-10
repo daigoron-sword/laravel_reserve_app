@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Myclasses\Management\ManagementView;
-use App\Myclasses\Chart\SalesChart;
+use App\Myclasses\Chart\SalesChartDay;
+use App\Myclasses\Chart\SalesChartMonth;
 use App\Models\Reservation;
 use App\Models\Customer;
 
@@ -93,7 +94,24 @@ class ManagementController extends Controller
       // 取得できないときは現在を指定
       if(!$date)$date = time();
 
-      $sales_chart = new SalesChart($date);
+
+      /**
+       * 月別及び日別クラスの取得
+       */
+      $graph = $request->input('graph');
+      // return dump($graph)
+      if($graph == 'day')
+      {
+         $sales_chart = new SalesChartDay($date);
+      }elseif($graph == 'month')
+      {
+         $sales_chart = new SalesChartMonth($date);
+      }else
+      {
+         $graph = null;
+      }
+      if(!$graph)$sales_chart = new SalesChartMonth($date);
+
       return view('management.salesChart', ['sales_chart' =>  $sales_chart]);
    }
 
