@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Illuminate\Support\Arr;
+// use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\NumberOfUser::class, function (Faker $faker) {
