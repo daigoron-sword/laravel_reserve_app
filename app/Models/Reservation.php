@@ -22,7 +22,7 @@ class Reservation extends Model
     // 主テーブルのリレーション
     public function NumberOfUser()
     {
-        return $this->hasmany('App\Models\NumberOfUser');
+        return $this->hasmany('App\Models\NumberOfUser', 'reserve_id');
     }
     public function room()
     {
