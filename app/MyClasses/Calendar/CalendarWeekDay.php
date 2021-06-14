@@ -1,5 +1,5 @@
 <?php
-namespace App\Myclasses\Calendar;
+namespace App\MyClasses\Calendar;
 use Carbon\Carbon;
 use App\Models\Room;
 

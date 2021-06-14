@@ -1,5 +1,5 @@
 <?php
-namespace App\Myclasses\Management;
+namespace App\MyClasses\Management;
 
 use App\Models\Reservation;
 use App\Models\NumberOfUser;

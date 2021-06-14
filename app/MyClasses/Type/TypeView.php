@@ -1,5 +1,5 @@
 <?php
-namespace App\Myclasses\Type;
+namespace App\MyClasses\Type;
 
 use Illuminate\Http\Request;
 use App\Models\type;

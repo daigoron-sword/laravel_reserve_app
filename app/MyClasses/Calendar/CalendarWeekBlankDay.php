@@ -1,5 +1,5 @@
 <?php
-namespace App\Myclasses\Calendar;
+namespace App\MyClasses\Calendar;
 
 /**
 * 余白を出力するためのクラス

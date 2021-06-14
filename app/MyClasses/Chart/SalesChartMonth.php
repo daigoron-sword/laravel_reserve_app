@@ -1,5 +1,5 @@
 <?php
-namespace App\Myclasses\Chart;
+namespace App\MyClasses\Chart;
 
 use App\Models\Reservation;
 
