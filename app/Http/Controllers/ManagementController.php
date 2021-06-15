@@ -91,9 +91,8 @@ class ManagementController extends Controller
       }else{
          $date = null;
       }
-      // 取得できないときは現在を指定
-      if(!$date)$date = time();
-
+      // 取得できないときは現在のｎ1日を指定
+      if(!$date)$date = date('Y-m-01');
 
       /**
        * 月別及び日別クラスの取得
