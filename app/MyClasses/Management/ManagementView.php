@@ -32,7 +32,7 @@ class ManagementView
         $html[] = '<tbody　class="table table-striped">';		
 
         $today = date('Y-m-d');
-        $reservations = Reservation::with(['mealPlan', 'room'])->where('reserved_on', '>=', $today)->get();
+        $reservations = Reservation::with(['mealPlan', 'room'])->where('reserved_on', '>=', $today)->orderBy('reserved_on', 'asc')->get();
         foreach($reservations as $reservation)
         {
             $html[] = '<tr>';
