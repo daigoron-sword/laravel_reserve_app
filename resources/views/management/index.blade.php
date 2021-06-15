@@ -16,5 +16,6 @@
     @endif
 
         {!! $management->render() !!} 
+        {!! $management->getReservation()->links() !!}
 </body>
 </html>
