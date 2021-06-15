@@ -31,8 +31,7 @@ class ManagementView
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
 
-        $today = date('Y-m-d');
-        $reservations = Reservation::with(['mealPlan', 'room'])->where('reserved_on', '>=', $today)->orderBy('reserved_on', 'asc')->get();
+        $reservations = $this->getReservation();
         foreach($reservations as $reservation)
         {
             $html[] = '<tr>';
@@ -126,6 +125,12 @@ class ManagementView
     protected function deleteReserveA($reservation)
     {
         return '<a href="'.route('deleteReserve', ['id' => $reservation->id]).' ">削除</a>';
+    }
+
+    public function getReservation()
+    {
+        $today = date('Y-m-d');
+        return Reservation::with(['mealPlan', 'room'])->where('reserved_on', '>=', $today)->orderBy('reserved_on', 'asc')->Paginate(5);
     }
 
 }
