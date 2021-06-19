@@ -24,6 +24,7 @@ Route::get('/reserve/fill', 'ReserveController@fill')->name('reserve.fill');
 Route::post('/reserve/check', 'ReserveController@check')->name('reserve.check');
 Route::post('/reserve/thanks', 'ReserveController@thanks');
 
+
 Route::get('/management', 'ManagementController@reserveManagement')->name('management');
 Route::get('/management/editRoom/{id}', 'ManagementController@editRoom')->name('editRoom');
 Route::post('/management/editRoom/{id}', 'ManagementController@finishRoom')->name('finishRoom');
@@ -33,3 +34,4 @@ Route::get('/management/deleteReserve/{id}', 'ManagementController@deleteReserve
 Route::post('/management/deleteReserve/{id}', 'ManagementController@removeReserve')->name('removeReserve');
 Route::get('/management/salesChart', 'ManagementController@salesChart')->name('salesChart');
 
+Route::get('/management/sourceManagemet', 'ManagementController@sourceManagemet')->name('sourceManagemet');
