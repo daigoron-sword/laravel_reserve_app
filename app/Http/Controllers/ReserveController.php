@@ -16,7 +16,8 @@ use Session;
 use App\Http\Requests\ReserveRequest;
 use App\Http\Requests\PlanTypeRequest;
 use Carbon\Carbon;
-
+use App\Mail\ConfirmMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class ReserveController extends Controller
@@ -162,7 +163,11 @@ class ReserveController extends Controller
                         'number_of_person' =>session()->get('type_id_'.$i.'')
                     ])->save();    
             }
-        }        
+        }
+        // メール送信
+        $reservation_dt = Reservation::with(['mealPlan', 'room', 'customer'])->find($reservation->id);
+        $number_of_user_dt = NumberOfUser::with('type')->where('reserve_id', $reservation->id)->get();
+        Mail::to($reservation_dt->customer->mail)->send(new ConfirmMail($reservation_dt, $number_of_user_dt));  
         // セッションデータ全削除
         session()->flush();
         return view('reserve.thanks');
