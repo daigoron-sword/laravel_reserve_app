@@ -138,4 +138,36 @@ class TypeView
 		return ['types_dt' => $types_dt, 'total_sum' => $total_sum];
 	}
 
+	function price_mail_form($reservation_dt, $number_of_user_dt) //メールフォーム用の金額を計算
+	{
+        $types_dt = [];
+
+		foreach($number_of_user_dt as $number_of_user)
+		{
+			if($number_of_user->type->id == 1 || $number_of_user->type->id == 2 || $number_of_user->type->id == 3) //男性、女性、大人の食事を用意する子供だけの計算
+			{
+				$unit_price = $number_of_user->type->price + $reservation_dt->room->price + $reservation_dt->mealPlan->price;
+				$sum = $unit_price * $number_of_user->number_of_person;
+				$type_dt[] = [ 
+					'type' => $number_of_user->type->type,
+					'price' => $unit_price,
+					'number' => $number_of_user->number_of_person,
+					'sum' => $sum
+				];
+			}else
+			{
+				$unit_price = $number_of_user->type->price;
+				$sum = $unit_price * $number_of_user->number_of_person;
+				$type_dt[] = [ 
+					'type' => $number_of_user->type->type,
+					'price' => $unit_price,
+					'number' => $number_of_user->number_of_person,
+					'sum' => $sum
+				];
+			}
+		}
+		return $type_dt;
+	}
+
+
 }
