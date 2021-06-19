@@ -36,8 +36,10 @@
               <dd class="col-md-10"><p>{{ $sesdata['prefectures'] }}</p></dd>
             <dt class="col-md-2">市区町村郡/番地</dt>
               <dd class="col-md-10"><p>{{ $sesdata['city'] }}</p></dd>
-            <dt class="col-md-2">建物・アパート名など</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['building'] }}</p></dd>
+            @isset($sesdata['building'])
+              <dt class="col-md-2">建物・アパート名など</dt>
+                <dd class="col-md-10"><p>{{ $sesdata['building'] }}</p></dd>
+            @endisset
             <dt class="col-md-2">電話番号</dt>
               <dd class="col-md-10"><p>{{ $sesdata['tel'] }}</p></dd>
             <dt class="col-md-2">交通手段</dt>
@@ -46,8 +48,10 @@
               <dd class="col-md-10"><p>{{ $sesdata['check_in_time'] }}</p></dd>
             <dt class="col-md-2">ご夕食の時間</dt>
               <dd class="col-md-10"><p>{{ $sesdata['dinner_start_time'] }}</p></dd>
+            @isset($sesdata['requests'])
               <dt class="col-md-2">ご要望</dt>
-              <dd class="col-md-10"><p>{{ $sesdata['requests'] }}</p></dd>
+                <dd class="col-md-10"><p>{{ $sesdata['requests'] }}</p></dd>
+            @endisset
           </dl>
           <!-- 利用人数 -->
           <h2>金額の確認</h2>
