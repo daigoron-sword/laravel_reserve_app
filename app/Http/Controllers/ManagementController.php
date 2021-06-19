@@ -114,6 +114,15 @@ class ManagementController extends Controller
       return view('management.salesChart', ['sales_chart' =>  $sales_chart]);
    }
 
+   /**
+    * 部屋とプランと利用タイプの編集画面
+    */
+   public function sourceManagemet()
+   {
+      $sourceManagement_dt = new sourceManagemetView();
+      return view('management.sourceManagemet',['sourceManagement_dt' => $sourceManagement_dt]);
+   }
+
 
 
 }
