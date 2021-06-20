@@ -17,7 +17,8 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('price');
-            $table->integer('capacity');
+            $table->date('start_period');
+            $table->date('end_period');
             $table->timestamps();
         });
     }
