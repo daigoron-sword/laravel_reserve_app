@@ -34,4 +34,8 @@ Route::get('/management/deleteReserve/{id}', 'ManagementController@deleteReserve
 Route::post('/management/deleteReserve/{id}', 'ManagementController@removeReserve')->name('removeReserve');
 Route::get('/management/salesChart', 'ManagementController@salesChart')->name('salesChart');
 
-Route::get('/management/sourceManagemet', 'ManagementController@sourceManagemet')->name('sourceManagemet');
+Route::get('/management/source', 'ManagementController@sourceManagemet')->name('sourceManagemet');
+Route::get('/management/source/editRoom/{id}', 'ManagementController@editRoomSource')->name('editRoomSource');
+Route::post('/management/source/editRoom/{id}', 'ManagementController@finishRoomSource')->name('finishRoomSource');
+Route::get('/management/source/deleteRoom/{id}', 'ManagementController@editRoomSource')->name('deleteRoomSource');
+Route::post('/management/source/deleteRoom/{id}', 'ManagementController@removeRoomSource')->name('removeRoomSource');
