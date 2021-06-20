@@ -138,5 +138,34 @@ class ManagementController extends Controller
       if($separate == 'delete') return view('management.source.deleteRoomSource',['room_source_dt' => $room_source_dt]);
    }
 
+   /**
+    * 部屋ソース編集処理
+    */
+   public function finishRoomSource(Request $request)
+   {
+      //；部屋ソースのバリデーション
+      $validate_rule =[
+         'meal_plan_id' => 'required',
+         'price' => ['requred', 'integer']
+      ]; 
+      $this->validate($request, $validate_rule);
+      $room = Room::find($request->id);
+      $room->name = $request->name;
+      $room->price = $request->price;
+      $room->save();
+      $id = $room->id;
+      return redirect()->route('editRoomSource', ['id' => $id])->with('status', '部屋ソースを編集しました。');
+   }
+
+   /**
+    * 部屋ソース削除処理
+    */
+   public function removeRoomSource(Request $request)
+   {
+      $room = Room::find($request->id)->delete;
+      Customer::find($reservation->customer->id)->delete();
+      return redirect()->route('sourceManagemet')->with('status', '部屋ソースを削除しました。');
+   }
+
 
 }
