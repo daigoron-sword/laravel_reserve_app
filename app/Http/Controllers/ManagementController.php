@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Myclasses\Management\ManagementView;
+use App\Myclasses\Management\SourceManagementView;
 use App\Myclasses\Chart\SalesChartDay;
 use App\Myclasses\Chart\SalesChartMonth;
 use App\Models\Reservation;
 use App\Models\Customer;
+use App\Models\Room;
+use App\Models\MealPlan;
+use App\Models\Type;
 
 
 class ManagementController extends Controller
@@ -115,14 +119,24 @@ class ManagementController extends Controller
    }
 
    /**
-    * 部屋とプランと利用タイプの編集画面
+    * 部屋とプランと利用タイプの管理画面
     */
-   public function sourceManagemet()
+   public function sourceManagemet(Request $request)
    {
-      $sourceManagement_dt = new sourceManagemetView();
-      return view('management.sourceManagemet',['sourceManagement_dt' => $sourceManagement_dt]);
+      $source_management_dt = new SourceManagementView();
+      return view('management.source.sourceManagemet',['sourceManagement_dt' => $source_management_dt]);
    }
 
+   /**
+    * 部屋ソース編集および削除画面
+    */
+   public function editRoomSource(Request $request)
+   {
+      $separate = $request->separate; //editかdeleteか判断
+      $room_source_dt = Room::find($request->id);
+      if($separate == 'edit') return view('management.source.editRoomSource',['room_source_dt' => $room_source_dt]);
+      if($separate == 'delete') return view('management.source.deleteRoomSource',['room_source_dt' => $room_source_dt]);
+   }
 
 
 }
