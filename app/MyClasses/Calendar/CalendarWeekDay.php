@@ -25,30 +25,17 @@ class CalendarWeekDay {
     
 	function reservedOn() //残りの部屋数を出力
     {
-        $date = $this->carbon->copy()->format('Y-m-d'); //カレンダーの日付の出力
+        $date = $this->carbon->copy()->format('Y-m-d'); //カレンダーの日付
         $date_encrypt = encrypt($date); // aタグ用に暗号化させる
+        //適用期間中の部屋数をカウント
+        $room_c = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->count();
+
         $now = Carbon::now(); //現在
-        if($this->carbon ->lt($now)) //出力する日が現在よりも前なら
-        {
-            return '-';
-        }
-        $room_dts = Room::all();
-        $room_c = 0; //適用期間中の部屋カウント変数
-        $str_date = strtotime($date);
-        
-        foreach($room_dts as $room_dt) //部屋データの繰り返し
-        {
-            // 部屋の開始日
-            $start_period = new Carbon($room_dt->start_period);
-            // 部屋の終了日
-            $end_period = new Carbon($room_dt->end_period);
-            // 開始日以上終了日以下の場合
-            if (Carbon::parse($date)->between($start_period, $end_period)) 
-            {
-                    // 部屋をカウントする
-                    $room_c++;
-            }
-        }
+        if($this->carbon ->lt($now)) return '-'; //出力する日が現在よりも前なら
+
+        $room = Room::orderBy('end_period', 'desc')->first();
+        if($date > $room->end_period) return '-'; //一番最後の終了期間以降の日付の場合
+
         
         $reserved_on_c = Reservation::where('reserved_on', $date)->count();// その日の予約数
         $room_remaining = $room_c - $reserved_on_c; //残りの部屋数
