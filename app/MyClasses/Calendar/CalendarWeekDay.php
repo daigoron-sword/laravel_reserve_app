@@ -2,6 +2,7 @@
 namespace App\MyClasses\Calendar;
 use Carbon\Carbon;
 use App\Models\Room;
+use App\Models\Reservation;
 
 
 class CalendarWeekDay {
@@ -22,49 +23,36 @@ class CalendarWeekDay {
 		return '<p class="day">' . $this->carbon->format("j"). '</p>';
     }
     
-	function ReservedOn() //残りの部屋数を出力
+	function reservedOn() //残りの部屋数を出力
     {
-		$day_r = $this->carbon->format('Y-m-d'); //カレンダーの日にちの出力
-        $day_r_encrypt = encrypt($day_r); // aタグ用に暗号化させる
-        $day = $this->carbon; //カレンダー日付
+        $date = $this->carbon->copy()->format('Y-m-d'); //カレンダーの日付の出力
+        $date_encrypt = encrypt($date); // aタグ用に暗号化させる
         $now = Carbon::now(); //現在
-        if($day ->lt($now)) //出力する日が現在よりも前なら
+        if($this->carbon ->lt($now)) //出力する日が現在よりも前なら
         {
             return '-';
         }
-		$room_dts = Room::all();
-        $room_c = count($room_dts); //全ての部屋数
-		
+        $room_dts = Room::all();
+        $room_c = 0; //適用期間中の部屋カウント変数
+        $str_date = strtotime($date);
+        
         foreach($room_dts as $room_dt) //部屋データの繰り返し
         {
-			$reservations = $room_dt->reservations; //リレーションでreservationsのデータを取り出し
-            foreach($reservations as $reservation)
+            // 部屋の開始日
+            $start_period = new Carbon($room_dt->start_period);
+            // 部屋の終了日
+            $end_period = new Carbon($room_dt->end_period);
+            // 開始日以上終了日以下の場合
+            if (Carbon::parse($date)->between($start_period, $end_period)) 
             {
-				$dates[] = $reservation['reserved_on'];//全ての予約日を取得
-            }    
-        }
-        if(isset($dates)) //予約テーブルに一つもデータがない場合の対処
-        {
-            $date_c = array_count_values($dates); //それぞれの予約日をキーに、日にちのカウントを値にする
-            if(array_key_exists($day_r, $date_c))  //指定した日にちが、$date_cのキーに存在していたら
-            {
-                if($date_c[$day_r] == $room_c) //予約日の数と全部屋数が一緒なら
-                {
-                    return '満室';
-                } else
-                {
-                    $sum = $room_c - $date_c[$day_r];
-                    return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $sum . '部屋</a>' ; //残りの部屋数を出力
-                }
-            }else //存在していなければ
-            {
-                // return '残り'.$room_c.'部屋'; //全ての部屋数を出力
-                return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
+                    // 部屋をカウントする
+                    $room_c++;
             }
-        }else //存在していなければ
-        {
-            // return '残り'.$room_c.'部屋'; //全ての部屋数を出力
-            return '<a href="/reserve/rooms?date=' . $day_r_encrypt . ' ">残り' . $room_c . '部屋</a>' ;//全ての部屋数を出力
         }
+        
+        $reserved_on_c = Reservation::where('reserved_on', $date)->count();// その日の予約数
+        $room_remaining = $room_c - $reserved_on_c; //残りの部屋数
+        if($room_remaining == 0) return '満室';
+        return '<a href="/reserve/rooms?date=' . $date_encrypt . ' ">残り' . $room_remaining . '部屋</a>' ;
     }
 }	
