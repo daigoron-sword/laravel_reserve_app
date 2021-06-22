@@ -62,7 +62,7 @@ class CalendarView
 			foreach($days as $day){
 				$html[] = '<td class="'.$day->getClassName().'">';
 				$html[] = $day->render();
-				$html[] = $day->ReservedOn();
+				$html[] = $day->reservedOn();
 				$html[] = '</td>';
 				$date = '';
 			}	
