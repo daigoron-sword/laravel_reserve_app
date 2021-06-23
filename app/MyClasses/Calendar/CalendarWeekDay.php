@@ -2,6 +2,7 @@
 namespace App\MyClasses\Calendar;
 use Carbon\Carbon;
 use App\Models\Room;
+use App\Models\mealPlan;
 use App\Models\Reservation;
 
 
@@ -31,10 +32,18 @@ class CalendarWeekDay {
         $room_c = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->count();
 
         $now = Carbon::now(); //現在
-        if($this->carbon ->lt($now)) return '-'; //出力する日が現在よりも前なら
+        //出力する日が現在よりも前なら
+        if($this->carbon ->lt($now)) return '-';
 
         $room = Room::orderBy('end_period', 'desc')->first();
-        if($date > $room->end_period) return '-'; //一番最後の終了期間以降の日付の場合
+        //一番最後の終了期間以降の日付の場合
+        if($date > $room->end_period) return '-'; 
+
+        // 日付が部屋とプランの適用期間外の処理 
+        $rooms = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
+        $meal_plans = MealPlan::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
+        if($rooms->isEmpty() || $meal_plans->isEmpty()) return '-';
+
 
         
         $reserved_on_c = Reservation::where('reserved_on', $date)->count();// その日の予約数
