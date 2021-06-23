@@ -23,7 +23,7 @@ class Room extends Model
         {
             if(!empty($reservations)) 
             {
-                // 部屋のIDと配列の中身を照らし合わせて予約していない
+                // 部屋のIDと配列の中身を照らし合わせて予約していない場合はリストに追加
                 if(!in_array($room->id, $reservations))$room_list[$room->id] = $room->name;
             }else
             {
