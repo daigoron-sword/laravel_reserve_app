@@ -11,28 +11,23 @@ class Room extends Model
 
     public static function select_room_list($date)
     {
-        $reservation_dts = Reservation::where('reserved_on', $date)->get();//予約予定日の予約データを全権取得
-        $i = 1;
-        foreach($reservation_dts as $reservation_dt)
-        {
-                $room_id[$i] = $reservation_dt->room_id;// 各予約日のroom_idを連想配列で取得
-                $i++;
-        }
-        $rooms = Room::all();
+        // 予約予定日に予約されている部屋のidを取得
+        $reservations = Reservation::where('reserved_on', $date)->get()->pluck('room_id')->toArray();
+        
         $room_list = [];
-        $room_list[""] = "選択してください";
-        foreach ($rooms as $room) 
-        {
-            if(isset($room_id))
-            {
-                if (!array_search($room->id, $room_id)){ //各部屋に対して予約がされてなければ
-                    // バリュー属性にID、表示はroom_nameを表示
-                    $room_list[$room->id] = $room->name;
-                }
-            }else{// 予約がいっさいなければ全権表示
-                // バリュー属性にID、表示はroom_nameを表示
-                $room_list[$room->id] = $room->name;
+        $room_list[''] = '選択してください';
 
+        // 適用期間中の部屋を抽出
+        $rooms = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
+        foreach($rooms as $room)
+        {
+            if(!empty($reservations)) 
+            {
+                // 部屋のIDと配列の中身を照らし合わせて予約していない
+                if(!in_array($room->id, $reservations))$room_list[$room->id] = $room->name;
+            }else
+            {
+                $room_list[$room->id] = $room->name;
             }
         }
         return $room_list;
