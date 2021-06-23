@@ -10,8 +10,6 @@ class MealPlan extends Model
     protected $table = 'meals_plans';
     // 割り当てをさせないようにする
     protected $guarded = ['id'];
-    // format()を使うために$datesに代入
-    protected $dates = ['start_period', 'end_period'];
 
     public static function select_meal_plan_list($date)
     {
