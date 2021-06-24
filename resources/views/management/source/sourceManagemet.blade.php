@@ -7,7 +7,7 @@
     <title>ソース管理</title>
 </head>
 <body>
-    <h1>ソース管理画面</h1>
+    <h1>ソース管理</h1>
     @if(session('status'))
         <div class="alert aler-saccsess">
             {{session('status')}}

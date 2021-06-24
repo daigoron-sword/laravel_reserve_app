@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>部屋情報変更</title>
+        <title>{{$title_dt['name']}}情報変更</title>
     </head>
     <body>
         <h1>{{$title_dt['name']}}情報の変更</h1>
@@ -14,7 +14,7 @@
                 </div>
             @endif
             <p>現在{{$source_dt->name}}を編集中です。</p>
-            <p><a href="{{route('sourceManagemet')}}">ソース管理画面へ戻る</a></p>
+            <p><a href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
         <div class="container">
             <div class="row justify-content-left">
                 <div class="col-md-12">
