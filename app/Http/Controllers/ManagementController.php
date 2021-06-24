@@ -160,7 +160,6 @@ class ManagementController extends Controller
    public function removeRoomSource(Request $request)
    {
       $room = Room::find($request->id)->delete;
-      Customer::find($reservation->customer->id)->delete();
       return redirect()->route('sourceManagemet')->with('status', '部屋ソースを削除しました。');
    }
 
