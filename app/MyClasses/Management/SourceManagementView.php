@@ -44,6 +44,12 @@ class SourceManagementView
             $html[] = $room->price; //価格
             $html[] = '</td>';
             $html[] = '<td>';
+            $html[] = $room->start_period; //開始時期
+            $html[] = '</td>';
+            $html[] = '<td>';
+            $html[] = $room->end_period; //終了時期
+            $html[] = '</td>';
+            $html[] = '<td>';
             $html[] = '<a href="'.route('editRoomSource', ['id' => $room->id, 'separate' => 'edit']).' ">編集</a>/<a href="'.route('deleteRoomSource', ['id' => $room->id, 'separate' => 'delete']).' ">削除</a>'; //編集/削除のaタグ生成
             $html[] = '</td>';
             $html[] = '</tr>';
@@ -102,49 +108,4 @@ class SourceManagementView
 
         return implode("", $html);
     }
-
-    /**
-     * タイプソーステーブルの出力
-     */
-    function typeRender()
-    {
-        $html = [];
-		$html[] = '<div class="type-source-management">';
-		$html[] = '<table class="table">';
-		$html[] = '<thead>';
-		$html[] = '<tr>';
-		$html[] = '<th scope="col">タイプ名</th>';
-		$html[] = '<th scope="col">説明</th>';
-		$html[] = '<th scope="col">ベッドの有無</th>';
-		$html[] = '<th scope="col">価格</th>';
-		$html[] = '</tr>';
-		$html[] = '</thead>';
-        $html[] = '<tbody　class="table table-striped">';		
-
-        foreach($this->types as $type)
-        {
-            $html[] = '<tr>';
-            $html[] = '<td>';
-            $html[] = $type->type; //タイプ名
-            $html[] = '</td>';
-            $html[] = '<td>';
-            $html[] = $type->description; //説明
-            $html[] = '</td>';
-            $html[] = '<td>';
-            $html[] = $type->bedding; //ベッドの有無
-            $html[] = '</td>';
-            $html[] = '<td>';
-            $html[] = $type->price; //価格
-            $html[] = '</td>';
-            $html[] = '</tr>';
-        }
-        $html[] = '</tbody>';
-
-        $html[] = '</table>';
-        $html[] = '</div>';
-
-        return implode("", $html);
-    }
-
-
 }
