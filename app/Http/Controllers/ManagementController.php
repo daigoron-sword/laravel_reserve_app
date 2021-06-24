@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Room;
 use App\Models\MealPlan;
 use App\Models\Type;
+use App\Http\Requests\EditRoomSourceRequest;
 
 
 class ManagementController extends Controller
@@ -124,7 +125,7 @@ class ManagementController extends Controller
    public function sourceManagemet(Request $request)
    {
       $source_management_dt = new SourceManagementView();
-      return view('management.source.sourceManagemet',['sourceManagement_dt' => $source_management_dt]);
+      return view('management.source.sourceManagemet',['source_management_dt' => $source_management_dt]);
    }
 
    /**
@@ -134,27 +135,23 @@ class ManagementController extends Controller
    {
       $separate = $request->separate; //editかdeleteか判断
       $room_source_dt = Room::find($request->id);
-      if($separate == 'edit') return view('management.source.editRoomSource',['room_source_dt' => $room_source_dt]);
-      if($separate == 'delete') return view('management.source.deleteRoomSource',['room_source_dt' => $room_source_dt]);
+      if($separate == 'edit') return view('management.source.editRoom',['room_source_dt' => $room_source_dt]);
+      if($separate == 'delete') return view('management.source.deleteRoom',['room_source_dt' => $room_source_dt]);
    }
 
    /**
     * 部屋ソース編集処理
     */
-   public function finishRoomSource(Request $request)
+   public function finishRoomSource(EditRoomSourceRequest $request)
    {
-      //；部屋ソースのバリデーション
-      $validate_rule =[
-         'meal_plan_id' => 'required',
-         'price' => ['requred', 'integer']
-      ]; 
-      $this->validate($request, $validate_rule);
       $room = Room::find($request->id);
       $room->name = $request->name;
       $room->price = $request->price;
+      $room->start_period = $request->start_period;
+      $room->end_period = $request->end_period;
       $room->save();
       $id = $room->id;
-      return redirect()->route('editRoomSource', ['id' => $id])->with('status', '部屋ソースを編集しました。');
+      return redirect()->route('editRoomSource', ['id' => $id, 'separate' => 'edit'])->with('status', '部屋ソースを編集しました。');
    }
 
    /**
