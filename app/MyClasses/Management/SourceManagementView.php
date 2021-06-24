@@ -29,6 +29,8 @@ class SourceManagementView
 		$html[] = '<tr>';
 		$html[] = '<th scope="col">部屋名</th>';
 		$html[] = '<th scope="col">価格</th>';
+        $html[] = '<th scope="col">開始時期</th>';
+		$html[] = '<th scope="col">終了時期</th>';
 		$html[] = '<th scope="col">編集/削除</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
