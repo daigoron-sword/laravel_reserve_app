@@ -16,6 +16,5 @@
 
         {!! $source_management_dt->roomRender() !!} 
         {!! $source_management_dt->planRender() !!} 
-        {!! $source_management_dt->typeRender() !!} 
 </body>
 </html>
