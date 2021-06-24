@@ -12,7 +12,7 @@ use App\Models\Customer;
 use App\Models\Room;
 use App\Models\MealPlan;
 use App\Models\Type;
-use App\Http\Requests\EditRoomSourceRequest;
+use App\Http\Requests\EditSourceRequest;
 
 
 class ManagementController extends Controller
@@ -131,33 +131,54 @@ class ManagementController extends Controller
    /**
     * 部屋ソース編集および削除画面
     */
-   public function editRoomSource(Request $request)
+   public function editSource(Request $request)
    {
-      $separate = $request->separate; //editかdeleteか判断
-      $room_source_dt = Room::find($request->id);
-      if($separate == 'edit') return view('management.source.editRoom',['room_source_dt' => $room_source_dt]);
-      if($separate == 'delete') return view('management.source.deleteRoom',['room_source_dt' => $room_source_dt]);
+      if($request->branch == 'room')
+      {
+         $source_dt = Room::find($request->id);
+         $title_dt = [
+            'name' => 'お部屋',
+            'branch' => $request->branch,
+         ];
+      }
+      elseif($request->branch == 'plan')
+      {
+         $source_dt = mealPlan::find($request->id);
+         $title_dt = [
+            'name' => 'プラン',
+            'branch' => $request->branch,
+         ];
+      }
+      if($request->separate == 'edit') return view('management.source.edit',['source_dt' => $source_dt, 'title_dt' => $title_dt]);
+      if($request->separate == 'delete') return view('management.source.delete',['source_dt' => $source_dt, 'title_dt' => $title_dt]);
    }
 
    /**
     * 部屋ソース編集処理
     */
-   public function finishRoomSource(EditRoomSourceRequest $request)
+   public function finishSource(EditSourceRequest $request)
    {
-      $room = Room::find($request->id);
-      $room->name = $request->name;
-      $room->price = $request->price;
-      $room->start_period = $request->start_period;
-      $room->end_period = $request->end_period;
-      $room->save();
-      $id = $room->id;
-      return redirect()->route('editRoomSource', ['id' => $id, 'separate' => 'edit'])->with('status', '部屋ソースを編集しました。');
+      if($request->branch == 'room')
+      {
+         $source_dt = Room::find($request->id);
+
+      }
+      elseif($request->branch == 'plan')
+      {
+         $source_dt = mealPlan::find($request->id);
+      }
+      $source_dt->name = $request->name;
+      $source_dt->price = $request->price;
+      $source_dt->start_period = $request->start_period;
+      $source_dt->end_period = $request->end_period;
+      $source_dt->save();
+      return redirect()->route('editSource', ['id' => $source_dt->id, 'separate' => 'edit', 'branch' => $request->branch])->with('status', '部屋ソースを編集しました。');
    }
 
    /**
     * 部屋ソース削除処理
     */
-   public function removeRoomSource(Request $request)
+   public function removeSource(Request $request)
    {
       $room = Room::find($request->id)->delete;
       return redirect()->route('sourceManagemet')->with('status', '部屋ソースを削除しました。');

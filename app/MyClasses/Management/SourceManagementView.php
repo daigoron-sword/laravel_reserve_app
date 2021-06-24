@@ -9,10 +9,12 @@ class SourceManagementView
 {
     protected $rooms;
     protected $plans;
+    protected $today;
     function __construct()
     {
         $this->rooms = Room::all();
         $this->plans = MealPlan::all();
+        $this->today = date('Y-m-d', time());
     }
 
     /**
@@ -50,7 +52,7 @@ class SourceManagementView
             $html[] = $room->end_period; //終了時期
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = $this->operableOrInoperable($room->id);
+            $html[] = $this->operableOrInoperable($room->id, 'room');
             $html[] = '</td>';
             $html[] = '</tr>';
         }
@@ -60,25 +62,6 @@ class SourceManagementView
         $html[] = '</div>';
 
         return implode("", $html);
-    }
-
-    /**
-     * 適用中は操作負荷、適用がなければ操作可能なaタグ
-     */
-    function operableOrInoperable($room_id)
-    {
-        $today = date('Y-m-d', time());
-        // 現在よりも後の予約日かつ、roomのidが適用されている予約が存在するか
-        $rooms = Reservation::where('reserved_on', '>=', $today)->where('room_id', $room_id)->exists();
-        if($rooms)
-        {
-            // 適用中の予約があれば操作負荷
-            return '予約適用中の為、操作不可';
-        }else
-        {
-            // 適用中の予約がなければリンク生成
-            return '<a href="'.route('editRoomSource', ['id' => $room_id, 'separate' => 'edit']).' ">編集</a>/<a href="'.route('deleteRoomSource', ['id' => $room_id, 'separate' => 'delete']).' ">削除</a>';
-        }
     }
 
     /**
@@ -116,7 +99,7 @@ class SourceManagementView
             $html[] = $plan->end_period; //終了時期
             $html[] = '</td>';
             $html[] = '<td>';
-            $html[] = '制作中'; //編集/削除のaタグ生成
+            $html[] = $this->operableOrInoperable($plan->id, 'plan');
             $html[] = '</td>';
             $html[] = '</tr>';
         }
@@ -127,4 +110,30 @@ class SourceManagementView
 
         return implode("", $html);
     }
+
+    /**
+     * 適用中は操作不可、適用がなければ操作可能なaタグ（プラン）
+     */
+    function operableOrInoperable($id, $branch)
+    {
+        if($branch == 'room')
+        {
+            // 現在よりも後の予約日かつ、roomのidが適用されている予約が存在するか
+            $reservations = Reservation::where('reserved_on', '>=', $this->today)->where('room_id', $id)->exists();
+        }elseif($branch == 'plan')
+        {
+            // 現在よりも後の予約日かつ、roomのidが適用されている予約が存在するか
+            $reservations = Reservation::where('reserved_on', '>=', $this->today)->where('meal_plan_id', $id)->exists();
+        }
+        if($reservations)
+        {
+            // 適用中の予約があれば操作負荷
+            return '予約適用中の為、操作不可';
+        }else
+        {
+            // 適用中の予約がなければリンク生成
+            return '<a href="'.route('editSource', ['id' => $id, 'separate' => 'edit', 'branch' => $branch]).' ">編集</a>/<a href="'.route('deleteSource', ['id' => $id, 'separate' => 'delete', 'branch' => $branch]).' ">削除</a>';
+        }
+    }
+
 }

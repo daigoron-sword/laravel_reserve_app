@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
 
-class EditRoomSourceRequest extends FormRequest
+class EditSourceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,10 @@ class EditRoomSourceRequest extends FormRequest
      */
     public function rules(Request $request)
     {
+        if($request->branch == 'room')$table = 'rooms';
+        if($request->branch == 'plan')$table = 'meals_plans';
         return [
-            'name' => ['required', 'unique:rooms,name,'.$request->base_name.',name'],
+            'name' => ['required', 'unique:'.$table.',name,'.$request->base_name.',name'],
             'price' => ['required', 'integer'],
             'start_period' => 'required',
             'end_period' => 'required',   
