@@ -129,7 +129,7 @@ class ManagementController extends Controller
    }
 
    /**
-    * 部屋ソース編集および削除画面
+    * ソースの編集および削除画面
     */
    public function editSource(Request $request)
    {
@@ -180,8 +180,16 @@ class ManagementController extends Controller
     */
    public function removeSource(Request $request)
    {
-      $room = Room::find($request->id)->delete;
-      return redirect()->route('sourceManagemet')->with('status', '部屋ソースを削除しました。');
+      if($request->branch == 'room')
+      {
+         $room = Room::find($request->id)->delete();
+
+      }
+      elseif($request->branch == 'plan')
+      {
+         $source_dt = mealPlan::find($request->id)->delete();
+      }
+      return redirect()->route('sourceManagemet')->with('status', 'ソースを削除しました。');
    }
 
 

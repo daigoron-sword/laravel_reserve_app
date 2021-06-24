@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>部屋情報削除</title>
+    <title>{{$title_dt['name']}}情報削除</title>
 </head>
 <body>
-    <h1>部屋情報の削除画面</h1>
-        <p><a href="{{route('sourceManagemet')}}">ソース管理画面へ戻る</a></p>
+    <h1>{{$title_dt['name']}}情報の削除</h1>
+        <p><a href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
-                {{ Form::open(['url' => '/management/source/deleteRoom/$room_source_dt->id', 'method' => 'post', 'files' => false]) }}
+                {{ Form::open(['url' => '/management/source/delete/$source_dt->id', 'method' => 'post', 'files' => false]) }}
                 {{ Form::token() }}
-                {{Form::hidden('id', $room_source_dt->id)}}
+                {{Form::hidden('id', $source_dt->id)}}
+                {{Form::hidden('branch', $title_dt['branch'])}}
                 <dl clss="row">
-                    <dt class="col-md-2">部屋名</dt>
-                        <dd class="col-md-10">{{$room_source_dt->name}}</dd>
+                    <dt class="col-md-2">{{$title_dt['name']}}名</dt>
+                        <dd class="col-md-10">{{$source_dt->name}}</dd>
                     <dt class="col-md-2">価格</dt>
-                        <dd class="col-md-10">{{$room_source_dt->price}}</dd>
+                        <dd class="col-md-10">{{$source_dt->price}}</dd>
                     <dt class="col-md-2">適用開始時期</dt>
-                        <dd class="col-md-10">{{$room_source_dt->start_period}}</dd>
+                        <dd class="col-md-10">{{$source_dt->start_period}}</dd>
                     <dt class="col-md-2">価格</dt>
-                        <dd class="col-md-10">{{$room_source_dt->end_period}}</dd>
+                        <dd class="col-md-10">{{$source_dt->end_period}}</dd>
                 </dl>
                     <!-- 送信ブロック -->
                     <div class="form-group row">
