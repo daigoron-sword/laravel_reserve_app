@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
 
-class EditSourceRequest extends FormRequest
+class SourceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -41,7 +41,7 @@ class EditSourceRequest extends FormRequest
             'name.required' => '名前は必ず入力してください。',
             'name.unique' => '他の部屋名と同じ名前は使えません。',
             'price.required' => '金額は必ず入力してください。',
-            'price.integer' => '入力は数値で入力してください。',
+            'price.integer' => '入力は半角数値で入力してください。',
             'start_period.required' => '入力必須です。',
             'end_period.required' => '入力必須です。',
         ];
