@@ -12,7 +12,7 @@ use App\Models\Customer;
 use App\Models\Room;
 use App\Models\MealPlan;
 use App\Models\Type;
-use App\Http\Requests\EditSourceRequest;
+use App\Http\Requests\SourceRequest;
 
 
 class ManagementController extends Controller
@@ -126,6 +126,47 @@ class ManagementController extends Controller
    {
       $source_management_dt = new SourceManagementView();
       return view('management.source.sourceManagemet',['source_management_dt' => $source_management_dt]);
+   }
+
+   /**
+    * ソースの新規作成画面
+    */
+   public function createSource(Request $request)
+   {
+      if($request->branch == 'room')
+      {
+         $title_dt = [
+            'name' => 'お部屋',
+            'branch' => $request->branch,
+         ];
+      }
+      elseif($request->branch == 'plan')
+      {
+         $title_dt = [
+            'name' => 'プラン',
+            'branch' => $request->branch,
+         ];
+      }
+      return view('management.source.create', ['title_dt' => $title_dt]);
+   }
+
+   /**
+    * ソースの新規作成処理
+    */
+   public function creatingSource(SourceRequest $request)
+   {
+      if($request->branch == 'room')
+      {
+         $model = new Room;
+      }
+      elseif($request->branch == 'plan')
+      {
+         $model = new MealPlan;
+      }
+      $form = $request->all();
+      unset($form['_token'], $form['branch']);
+      $model->fill($form)->save();
+      return redirect()->route('sourceManagemet')->with('status', '新規作成できました。');      
    }
 
    /**

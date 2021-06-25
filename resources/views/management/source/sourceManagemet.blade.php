@@ -13,8 +13,9 @@
             {{session('status')}}
         </div>
     @endif
-
+        <p><a href="{{route('createSource', ['branch' => 'room'])}}">お部屋の新規作成</a></p>
         {!! $source_management_dt->roomRender() !!} 
+        <p><a href="{{route('createSource', ['branch' => 'plan'])}}">プランの新規作成</a></p>
         {!! $source_management_dt->planRender() !!} 
 </body>
 </html>
