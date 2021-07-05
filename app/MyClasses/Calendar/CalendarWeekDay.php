@@ -49,6 +49,7 @@ class CalendarWeekDay {
         $reserved_on_c = Reservation::where('reserved_on', $date)->count();// その日の予約数
         $room_remaining = $room_c - $reserved_on_c; //残りの部屋数
         if($room_remaining == 0) return '満室';
-        return '<a href="/reserve/rooms?date=' . $date_encrypt . ' ">残り' . $room_remaining . '部屋</a>' ;
+        return '<a href="'.route('reserve.rooms').'?date=' . $date_encrypt . ' ">残り' . $room_remaining . '部屋</a>' ;
+        // return '<a href="/reserve/rooms?date=' . $date_encrypt . ' ">残り' . $room_remaining . '部屋</a>' ;
     }
 }	

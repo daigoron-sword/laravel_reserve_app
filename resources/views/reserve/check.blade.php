@@ -76,7 +76,8 @@
               </tbody>
             </table>
             <p>合計金額　{{$sesdata['total_sum']}}円 </p>
-          {{ Form::submit('予約完了', ['class'=>'btn btn-primary btn-block']) }}
+          <!-- {{ Form::submit('お客様情報を修正', ['class'=>'btn btn-primary btn-block', 'name' => 'back']) }} -->
+          {{ Form::submit('予約する', ['class'=>'btn btn-primary btn-block']) }}
         {{ Form::close() }}
     </div>
   </div>

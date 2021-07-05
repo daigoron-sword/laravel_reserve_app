@@ -44,20 +44,29 @@ class ReserveController extends Controller
 		]);
     }
 
-    public function select_room(Request $request)
+    public function date_session(Request $request)
     {
         $date = decrypt($request->date); //日にちを複合化
         session(['date' => $date ]);
+        return redirect()->action('reserveController@select_room');
+    }
+
+    public function select_room(Request $request)
+    {
         return view('reserve.rooms');
     }
 
-    
-    public function select_meal_plan(Request $request)
+    public function room_session(Request $request)
     {
         $validate_rule =['room_id' => 'required']; //；部屋選択のバリデーションルール
         $this->validate($request, $validate_rule);
         $room_dt = Room::find($request->room_id);
         session(['room_dt' => $room_dt ]);
+        return redirect() ->action('ReserveController@select_mea_plan');
+    }
+
+    public function select_meal_plan(Request $request)
+    {
         $types = new TypeView();
         return view('reserve.meals_plans', ['types' => $types]);
     }
@@ -116,6 +125,10 @@ class ReserveController extends Controller
     public function thanks(Request $request)
     {
         $sesdata = session()->all();
+        // if($request->has('back'))
+        // {
+        //     return redirect()->action('ReserveController@fill')->withInput($sesdata);
+        // }
         $customer = new \App\Models\Customer; // 顧客テーブルデータの新規作成
         // 挿入
         $customer->fill
