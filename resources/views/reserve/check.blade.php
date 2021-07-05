@@ -11,7 +11,7 @@
   <div class="row justify-content-left">
     <div class="col-md-12">
       <h1>入力情報の確認</h1>
-        {{ Form::open(['url' => '/reserve/thanks', 'method' => 'post', 'files' => false,]) }}
+        {{ Form::open(['url' => route('reserve.send'), 'method' => 'post', 'files' => false,]) }}
         {{ Form::token() }}
           <dl class='row'>
             <dt class="col-md-2">予約日</dt>

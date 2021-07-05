@@ -15,12 +15,7 @@ class ReserveRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->path() == 'reserve/check') //checkアクションのみバリデーションルール許可
-        {
             return true;
-        } else {
-            return false;
-        }
     }
 
     /**

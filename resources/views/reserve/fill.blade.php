@@ -28,7 +28,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($types_dt as $type_dt)
+            @foreach($sesdata['types_dt'] as $type_dt)
             <tr>
               <td>{{$type_dt['type']}}</td>
               <td>{{$type_dt['price']}}円</td>
@@ -40,7 +40,7 @@
         </table>
         <p>合計金額　{{$sesdata['total_sum']}}円 </p>
 
-      {{ Form::open(['url' => '/reserve/check', 'method' => 'post', 'files' => false,]) }}
+      {{ Form::open(['url' => route('reserve.customer_session'), 'method' => 'post', 'files' => false,]) }}
       {{ Form::token() }}
         <!-- 名前 -->
         <div class="row">

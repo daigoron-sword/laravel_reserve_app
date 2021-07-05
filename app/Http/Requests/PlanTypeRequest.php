@@ -13,12 +13,7 @@ class PlanTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->path() == 'reserve/fill') //fillアクションのみバリデーションルール許可
-        {
             return true;
-        } else {
-            return false;
-        }
     }
 
     /**

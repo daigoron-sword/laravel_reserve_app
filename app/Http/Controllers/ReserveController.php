@@ -44,15 +44,10 @@ class ReserveController extends Controller
 		]);
     }
 
-    public function date_session(Request $request)
+    public function select_room(Request $request)
     {
         $date = decrypt($request->date); //日にちを複合化
         session(['date' => $date ]);
-        return redirect()->action('reserveController@select_room');
-    }
-
-    public function select_room(Request $request)
-    {
         return view('reserve.rooms');
     }
 
@@ -62,7 +57,7 @@ class ReserveController extends Controller
         $this->validate($request, $validate_rule);
         $room_dt = Room::find($request->room_id);
         session(['room_dt' => $room_dt ]);
-        return redirect() ->action('ReserveController@select_mea_plan');
+        return redirect()->action('ReserveController@select_meal_plan');
     }
 
     public function select_meal_plan(Request $request)
@@ -71,7 +66,7 @@ class ReserveController extends Controller
         return view('reserve.meals_plans', ['types' => $types]);
     }
 
-    public function fill(PlanTypeRequest $request)
+    public function meal_plan_session(PlanTypeRequest $request)
     {
         $meal_plan_dt = MealPlan::find($request->meal_plan_id);
         session(['meal_plan_dt' => $meal_plan_dt ]);
@@ -90,39 +85,48 @@ class ReserveController extends Controller
             'types_dt' => $types_dt,
             'total_sum' => $total_sum
         ]);
-        $sesdata = session()->all();
-        // return dump($sesdata['types_dt']);
-        return view('reserve.fill', ['sesdata' => $sesdata, 'types_dt' => $types_dt]);
+        return redirect()->action('ReserveController@fill');
+
     }
 
-    public function check(ReserveRequest $request) //バリデーションルール使用
+    public function fill(Request $request)
+    {
+        $sesdata = session()->all();
+        return view('reserve.fill', ['sesdata' => $sesdata]);
+    }
+
+    public function customer_session(ReserveRequest $request)
     {
         // 個人情報をセッションに格納
         session(
-        [
-            'name' => $request->name,
-            'hurigana' => $request->hurigana,
-            'gender' => $request->gender,
-            'mail' => $request->mail,
-            'dob' => $request->dob,
-            'postal' => $request->postal,
-            'prefectures' => $request->prefectures,
-            'city' => $request->city,
-            'building' => $request->building,
-            'tel' => $request->tel,
-            'reserved_on' => $request->reserved_on,
-            'transportation' => $request->transportation,
-            'check_in_time' => $request->check_in_time,
-            'requests' => $request->requests,
-            'dinner_start_time' => $request->dinner_start_time,
-        ]);
+            [
+                'name' => $request->name,
+                'hurigana' => $request->hurigana,
+                'gender' => $request->gender,
+                'mail' => $request->mail,
+                'dob' => $request->dob,
+                'postal' => $request->postal,
+                'prefectures' => $request->prefectures,
+                'city' => $request->city,
+                'building' => $request->building,
+                'tel' => $request->tel,
+                'reserved_on' => $request->reserved_on,
+                'transportation' => $request->transportation,
+                'check_in_time' => $request->check_in_time,
+                'requests' => $request->requests,
+                'dinner_start_time' => $request->dinner_start_time,
+            ]);
+        return redirect()->action('ReserveController@check');
+    }
+
+    public function check(Request $request) //バリデーションルール使用
+    {
         $sesdata = session()->all();
         $type_view = new TypeView(); //check_renderメソッドを使うためにタイプビュー作成
         return view('reserve.check', ['type_view' => $type_view, 'sesdata' => $sesdata]);
     }
 
-
-    public function thanks(Request $request)
+    public function send(Request $request)
     {
         $sesdata = session()->all();
         // if($request->has('back'))
@@ -183,6 +187,12 @@ class ReserveController extends Controller
         Mail::to($reservation_dt->customer->mail)->send(new ConfirmMail($reservation_dt, $number_of_user_dt));  
         // セッションデータ全削除
         session()->flush();
+        return redirect()->action('ReserveController@thanks');
+
+    }
+
+    public function thanks(Request $request)
+    {
         return view('reserve.thanks');
     }
 }

@@ -13,22 +13,25 @@
 
 Route::get('/', 'HomeController@index')->name('index');
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/reserve', 'ReserveController@index')->name('reserve');
 
-Route::get('/reserve/rooms', 'ReserveController@date_session')->name('reserve.rooms');
 Route::get('/reserve/rooms', 'ReserveController@select_room')->name('reserve.rooms');
+Route::post('/reserve/room_seisson', 'ReserveController@room_session')->name('reserve.room_session');
 
-
-Route::get('/reserve/meals_plans', 'ReserveController@room_session')->name('reserve.meals_plans');
-Route::get('/reserve/meals_plans', 'ReserveController@select_meal_plan');
+Route::get('/reserve/meals_plans', 'ReserveController@select_meal_plan')->name('reserve.meals_plans');
+Route::post('/reserve/meal_plan_session', 'ReserveController@meal_plan_session')->name('reserve.meal_plan_session');
 
 Route::get('/reserve/fill', 'ReserveController@fill')->name('reserve.fill');
-Route::post('/reserve/check', 'ReserveController@check')->name('reserve.check');
-Route::post('/reserve/thanks', 'ReserveController@thanks');
+Route::post('/reserve/customer_sesson', 'ReserveController@customer_session')->name('reserve.customer_session');
+
+
+Route::get('/reserve/check', 'ReserveController@check')->name('reserve.check');
+Route::post('/reserve/send', 'ReserveController@send')->name('reserve.send');
+
+Route::get('/reserve/thanks', 'ReserveController@thanks');
 
 
 Route::get('/management', 'ManagementController@reserveManagement')->name('management');

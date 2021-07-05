@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>予約完了</h1>
+    <p><a href="{{route('reserve')}}">予約カレンダーに戻る</a></p>
 </body>
 </html>
