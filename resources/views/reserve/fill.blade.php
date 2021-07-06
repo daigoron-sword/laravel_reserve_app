@@ -39,7 +39,7 @@
           </tbody>
         </table>
         <p>合計金額　{{$sesdata['total_sum']}}円 </p>
-
+        <p><a href="{{route('reserve.meals_plans')}}">プラン選択に戻る</a></p>
       {{ Form::open(['url' => route('reserve.customer_session'), 'method' => 'post', 'files' => false,]) }}
       {{ Form::token() }}
         <!-- 名前 -->
@@ -47,7 +47,7 @@
           <div class="col">
             {{Form::label('name', '氏名',)}}<small>（必須）</small>
             @error('name')
-              <p>{{$message}}</p> 
+              <div class="alert alert-danger">{{$message}}</div> 
             @enderror
             {{Form::text('name', old('name'), ['class' => 'form-control'])}}
           </div>
@@ -55,14 +55,14 @@
           <div class="col">
             {{Form::label('hurigana', '氏名（ふりがな）')}}<small>（必須）</small>
             @error('hurigana')
-              <p>{{$message}}</p> 
+              <div class="alert alert-danger">{{$message}}</div> 
             @enderror
             {{Form::text('hurigana', old('hurigana'), ['class' => 'form-control'])}}          
           </div>
         </div>
         <!-- 性別 -->
         @error('gender')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
         {{Form::label('gender', '性別')}}<small>（必須）</small>
         <div class="form-check form-check-inline">
@@ -77,7 +77,7 @@
         <div class="form-group">
           {{Form::label('mail', 'メールアドレス')}}<small>（必須）</small>
         @error('mail')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::email('mail', old('mail'), ['class' => 'form-control'])}}
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group">
           {{Form::label('dob', '生年月日')}}<small>（必須）</small>
         @error('dob')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::date('dob', old('date'), ['class' => 'form-control'])}}
         </div>
@@ -93,7 +93,7 @@
         <div class="form-group">
           {{Form::label('postal', '郵便番号')}}<small>（必須）</small>
         @error('postal')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::text('postal', old('postal'), ['class' => 'form-control','placeholder' => '（例）1234567'])}}
         </div>
@@ -101,7 +101,7 @@
         <div class="form-group">
           {{Form::label('prefectures', '都道府県')}}<small>（必須）</small>
         @error('prefectures')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::select('prefectures', 
             [
@@ -158,7 +158,7 @@
         <div class="form-group">
           {{Form::label('city', '市区町村郡/番地')}}<small>（必須）</small>
         @error('city')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::text('city', old('city'), ['class' => 'form-control'])}}
         </div>
@@ -166,7 +166,7 @@
         <div class="form-group">
           {{Form::label('building', '建物・アパート名など')}}
         @error('building')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::text('building', old('building'), ['class' => 'form-control'])}}
         </div>
@@ -174,7 +174,7 @@
         <div class="form-group">
           {{Form::label('tel', '電話番号')}}<small>（必須）</small>
         @error('tel')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::tel('tel', old('tel'), ['placeholder' => '（例）12345678900', 'min' => 0, 'class' => 'form-control'])}}
         </div>
@@ -182,7 +182,7 @@
         <div class="form-group">
           {{Form::label('transportation', '交通手段')}}<small>（必須）</small>
         @error('transportation')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::select('transportation', ['車' => '車', '電車・バス' => '電車・バス', '徒歩' => '徒歩'], old('transportation'), ['class' => 'form-control', 'placeholder' => '選択してください'])}}
         </div>
@@ -190,7 +190,7 @@
         <div class="form-group">
           {{Form::label('check_in_time', 'チェックイン時間')}}
         @error('check_in_time')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::select('check_in_time', 
             [
@@ -207,7 +207,7 @@
         <div class="form-group">
           {{Form::label('dinner_start_time', 'ご夕食の時間')}}<small>（必須）</small>
         @error('dinner_start_time')
-          <p>{{$message}}</p> 
+          <div class="alert alert-danger">{{$message}}</div> 
         @enderror
           {{Form::select('dinner_start_time', 
             [

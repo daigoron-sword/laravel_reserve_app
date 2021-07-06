@@ -17,6 +17,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <p><a href="{{route('management')}}">管理画面</a></p>
+                @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
             <div class="card">
                 <div class="card-header text-center">
                     <a class="btn btn-outline-secondary float-left" href="{{ url('/reserve?date=' . $calendar->getPreviousMonth()) }}">前の月</a>
