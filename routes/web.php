@@ -16,38 +16,39 @@ Route::get('/', 'HomeController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@home')->name('home');
-Route::get('/reserve', 'ReserveController@index')->name('reserve');
+// 予約のルーティング
+Route::prefix('reserve')->group(function(){
+    Route::get('/', 'ReserveController@index')->name('reserve');
+    Route::get('rooms', 'ReserveController@select_room')->name('reserve.rooms');
+    Route::post('room_session', 'ReserveController@room_session')->name('reserve.room_session');
+    Route::get('meals_plans', 'ReserveController@select_meal_plan')->name('reserve.meals_plans');
+    Route::post('meal_plan_session', 'ReserveController@meal_plan_session')->name('reserve.meal_plan_session');
+    Route::get('fill', 'ReserveController@fill')->name('reserve.fill');
+    Route::post('customer_session', 'ReserveController@customer_session')->name('reserve.customer_session');
+    Route::get('check', 'ReserveController@check')->name('reserve.check');
+    Route::post('send', 'ReserveController@send')->name('reserve.send');
+    Route::get('thanks', 'ReserveController@thanks');  
+});
 
-Route::get('/reserve/rooms', 'ReserveController@select_room')->name('reserve.rooms');
-Route::post('/reserve/room_session', 'ReserveController@room_session')->name('reserve.room_session');
+// 予約管理のルーティング
+Route::prefix('management')->group(function(){
+    Route::get('/', 'ManagementController@reserveManagement')->name('management');
+    Route::get('editRoom/{id}', 'ManagementController@editRoom')->name('editRoom');
+    Route::post('editRoom/{id}', 'ManagementController@finishRoom')->name('finishRoom');
+    Route::get('editPlan/{id}', 'ManagementController@editPlan')->name('editPlan');
+    Route::post('editPlan/{id}', 'ManagementController@finishPlan')->name('finishPlan');
+    Route::get('deleteReserve/{id}', 'ManagementController@deleteReserve')->name('deleteReserve');
+    Route::post('deleteReserve/{id}', 'ManagementController@removeReserve')->name('removeReserve');
+    Route::get('salesChart', 'ManagementController@salesChart')->name('salesChart');
+});
 
-Route::get('/reserve/meals_plans', 'ReserveController@select_meal_plan')->name('reserve.meals_plans');
-Route::post('/reserve/meal_plan_session', 'ReserveController@meal_plan_session')->name('reserve.meal_plan_session');
-
-Route::get('/reserve/fill', 'ReserveController@fill')->name('reserve.fill');
-Route::post('/reserve/customer_session', 'ReserveController@customer_session')->name('reserve.customer_session');
-
-
-Route::get('/reserve/check', 'ReserveController@check')->name('reserve.check');
-Route::post('/reserve/send', 'ReserveController@send')->name('reserve.send');
-
-Route::get('/reserve/thanks', 'ReserveController@thanks');
-
-
-Route::get('/management', 'ManagementController@reserveManagement')->name('management');
-Route::get('/management/editRoom/{id}', 'ManagementController@editRoom')->name('editRoom');
-Route::post('/management/editRoom/{id}', 'ManagementController@finishRoom')->name('finishRoom');
-Route::get('/management/editPlan/{id}', 'ManagementController@editPlan')->name('editPlan');
-Route::post('/management/editPlan/{id}', 'ManagementController@finishPlan')->name('finishPlan');
-Route::get('/management/deleteReserve/{id}', 'ManagementController@deleteReserve')->name('deleteReserve');
-Route::post('/management/deleteReserve/{id}', 'ManagementController@removeReserve')->name('removeReserve');
-Route::get('/management/salesChart', 'ManagementController@salesChart')->name('salesChart');
-
-
-Route::get('/management/source', 'ManagementController@sourceManagemet')->name('sourceManagemet');
-Route::get('/management/source/create', 'ManagementController@createSource')->name('createSource');
-Route::post('/management/source/create', 'ManagementController@creatingSource')->name('creatingSource');
-Route::get('/management/source/edit/{id}', 'ManagementController@editSource')->name('editSource');
-Route::post('/management/source/edit/{id}', 'ManagementController@finishSource')->name('finishSource');
-Route::get('/management/source/delete/{id}', 'ManagementController@editSource')->name('deleteSource');
-Route::post('/management/source/delete/{id}', 'ManagementController@removeSource')->name('removeSource');
+// ソース管理のルーティング
+Route::prefix('management/source')->group(function(){
+    Route::get('/', 'ManagementController@sourceManagemet')->name('sourceManagemet');
+    Route::get('create', 'ManagementController@createSource')->name('createSource');
+    Route::post('create', 'ManagementController@creatingSource')->name('creatingSource');
+    Route::get('edit/{id}', 'ManagementController@editSource')->name('editSource');
+    Route::post('edit/{id}', 'ManagementController@finishSource')->name('finishSource');
+    Route::get('delete/{id}', 'ManagementController@editSource')->name('deleteSource');
+    Route::post('delete/{id}', 'ManagementController@removeSource')->name('removeSource');
+});
