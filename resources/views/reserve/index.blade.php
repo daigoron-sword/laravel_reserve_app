@@ -16,7 +16,8 @@
     @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
-                <p><a href="{{route('management')}}">管理画面</a></p>
+                <p><a href="{{route('management')}}" class="btn btn-link">管理画面に移る</a></p>
+                <p>ご希望の予定日を選択してください</p>
                 @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
                 @endif

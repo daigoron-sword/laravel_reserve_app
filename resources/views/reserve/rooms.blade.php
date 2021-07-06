@@ -7,8 +7,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-left">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
                 {{ Form::open(['url' => route('reserve.room_session'), 'method' => 'post', 'files' => false]) }}
                     <!-- お部屋選択 -->
                     <div class="form-group pb-3">
