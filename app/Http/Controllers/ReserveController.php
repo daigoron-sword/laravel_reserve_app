@@ -48,6 +48,7 @@ class ReserveController extends Controller
     {
         // 予約日不可の日はカレンダーにリダイレクト
         $date = new Carbon($request->date);
+        session(['date' => $date->format('Y-m-d') ]);
         $now = Carbon::now(); 
         $rooms = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
         $meal_plans = MealPlan::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
