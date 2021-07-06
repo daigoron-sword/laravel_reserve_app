@@ -46,8 +46,15 @@ class ReserveController extends Controller
 
     public function select_room(Request $request)
     {
-        $date = decrypt($request->date); //日にちを複合化
-        session(['date' => $date ]);
+        // 予約日不可の日はカレンダーにリダイレクト
+        $date = new Carbon($request->date);
+        $now = Carbon::now(); 
+        $rooms = Room::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
+        $meal_plans = MealPlan::where('start_period', '<=', $date)->where('end_period', '>=', $date)->get();
+        if($rooms->isEmpty() || $meal_plans->isEmpty() || $date->lt($now))
+        {
+            return redirect()->action('ReserveController@index')->with('error', '予約できない日付です');
+        }
         return view('reserve.rooms');
     }
 
@@ -129,10 +136,10 @@ class ReserveController extends Controller
     public function send(Request $request)
     {
         $sesdata = session()->all();
-        // if($request->has('back'))
-        // {
-        //     return redirect()->action('ReserveController@fill')->withInput($sesdata);
-        // }
+        if($request->has('back'))
+        {
+            return redirect()->action('ReserveController@fill')->withInput($sesdata);
+        }
         $customer = new \App\Models\Customer; // 顧客テーブルデータの新規作成
         // 挿入
         $customer->fill
