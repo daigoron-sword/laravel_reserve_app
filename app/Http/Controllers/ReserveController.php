@@ -197,11 +197,5 @@ class ReserveController extends Controller
         session()->flush();
         session()->flash('flash_message', '予約が完了しました。登録いただいたメールアドレス宛にご予約情報をお送りしました。');
         return redirect()->action('ReserveController@index');
-
-    }
-
-    public function thanks(Request $request)
-    {
-        return view('reserve.thanks');
     }
 }

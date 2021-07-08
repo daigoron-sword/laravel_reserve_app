@@ -27,7 +27,6 @@ Route::prefix('reserve')->group(function(){
     Route::post('customer_session', 'ReserveController@customer_session')->name('reserve.customer_session');
     Route::get('check', 'ReserveController@check')->name('reserve.check');
     Route::post('send', 'ReserveController@send')->name('reserve.send');
-    Route::get('thanks', 'ReserveController@thanks');  
 });
 
 // 予約管理のルーティング
