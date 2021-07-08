@@ -55,13 +55,13 @@
           </dl>
           <!-- 利用人数 -->
           <h2>金額の確認</h2>
-            <table class="table">
+            <table class="table table-hover table-bordered">  
               <thead>
                 <tr>
                   <th scope="col">内訳</th>
                   <th scope="col">単価</th>
                   <th scope="col">人数</th>
-                  <th scope="col">金額</th>
+                  <th scope="col"><div class="text-right">金額</div></th>
                 </tr>
               </thead>
               <tbody>
@@ -70,12 +70,12 @@
                   <td>{{$type_dt['type']}}</td>
                   <td>{{$type_dt['price']}}円</td>
                   <td>{{$type_dt['number']}}人</td>
-                  <td>{{$type_dt['sum']}}円</td>
+                  <td><div class="text-right">{{$type_dt['sum']}}円</div></td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
-            <p>合計金額　{{$sesdata['total_sum']}}円 </p>
+            <p class="text-right">合計金額　{{$sesdata['total_sum']}}円 </p>
           {{ Form::submit('戻る', ['class'=>'btn btn-primary btn-block', 'name' => 'back']) }}
           {{ Form::submit('予約する', ['class'=>'btn btn-primary btn-block']) }}
         {{ Form::close() }}

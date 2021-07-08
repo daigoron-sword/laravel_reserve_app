@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
-            <p><a href="{{route('reserve.rooms')}}">部屋選択に戻る</a></p>
+            <p><a href="{{route('reserve.rooms')}}" class="btn btn-outline-primary roll=button">部屋選択に戻る</a></p>
                 {{ Form::open(['url' => route('reserve.meal_plan_session'), 'method' => 'post', 'files' => false]) }}
                     <!-- お食事選択 -->
                     <div class="form-group pb-3">

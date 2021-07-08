@@ -8,26 +8,27 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                {{ Form::open(['url' => route('reserve.room_session'), 'method' => 'post', 'files' => false]) }}
-                    <!-- お部屋選択 -->
-                    <div class="form-group pb-3">
-                        {{ Form::label('room_id','お部屋選択') }}
-                        @error('room_id')
-                        <div class="alert alert-danger">{{$message}}</div> 
-                        @enderror
-                        {{ Form::select('room_id', App\Models\Room::select_room_list(Session::get('date')), '選択してください', ['class' => 'form-control','id' => 'room']) }}
-                    </div>
-                    <!-- /お部屋選択 -->
-                    <!-- 送信ブロック -->
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            {{ Form::submit('食事プランの選択へ', ['class'=>'btn btn-primary btn-block']) }}
+                <div class="col-md-6">
+                    <p><a href="{{route('reserve')}}" class="btn btn-outline-primary roll=button">戻る</a></p>
+                    {{ Form::open(['url' => route('reserve.room_session'), 'method' => 'post', 'files' => false]) }}
+                        <!-- お部屋選択 -->
+                        <div class="form-group pb-3">
+                            {{ Form::label('room_id','お部屋選択') }}
+                            @error('room_id')
+                            <div class="alert alert-danger">{{$message}}</div> 
+                            @enderror
+                            {{ Form::select('room_id', App\Models\Room::select_room_list(Session::get('date')), '選択してください', ['class' => 'form-control','id' => 'room']) }}
                         </div>
-                    <!-- /送信ブロック -->
-                    </div>
-                {{ Form::close() }}
-            </div>
+                        <!-- /お部屋選択 -->
+                        <!-- 送信ブロック -->
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                {{ Form::submit('食事プランの選択へ', ['class'=>'btn btn-primary btn-block']) }}
+                            </div>
+                        <!-- /送信ブロック -->
+                        </div>
+                    {{ Form::close() }}
+                </div>
         </div>
     </div>
 </body>
