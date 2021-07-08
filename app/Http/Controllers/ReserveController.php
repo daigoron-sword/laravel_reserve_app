@@ -195,7 +195,8 @@ class ReserveController extends Controller
         Mail::to($reservation_dt->customer->mail)->send(new ConfirmMail($reservation_dt, $number_of_user_dt));  
         // セッションデータ全削除
         session()->flush();
-        return redirect()->action('ReserveController@thanks');
+        session()->flash('flash_message', '予約が完了しました。登録いただいたメールアドレス宛にご予約情報をお送りしました。');
+        return redirect()->action('ReserveController@index');
 
     }
 
