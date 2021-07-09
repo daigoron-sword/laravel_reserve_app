@@ -15,48 +15,48 @@ class ManagementView
     function render() //予約管理テーブルの出力
     {
         $html = [];
-		$html[] = '<div class="management">';
-		$html[] = '<table class="table">';
+		$html[] = '<div class="table-responsive-lg">';
+		$html[] = '<table class="table table-striped">';
 		$html[] = '<thead>';
 		$html[] = '<tr>';
-		$html[] = '<th scope="col">予約日</th>';
-		$html[] = '<th scope="col">利用人数</th>';
-		$html[] = '<th scope="col">代表者名</th>';
-		$html[] = '<th scope="col">電話番号</th>';
-		$html[] = '<th scope="col">部屋</th>';
-		$html[] = '<th scope="col">プラン</th>';
-		$html[] = '<th scope="col">合計金額</th>';
-		$html[] = '<th scope="col">削除</th>';
+		$html[] = '<th scope="col" class="text-nowrap">予約日</th>';
+		$html[] = '<th scope="col" class="text-nowrap">利用人数</th>';
+		$html[] = '<th scope="col" class="text-nowrap">代表者名</th>';
+		$html[] = '<th scope="col" class="text-nowrap">電話番号</th>';
+		$html[] = '<th scope="col" class="text-nowrap">部屋</th>';
+		$html[] = '<th scope="col" class="text-nowrap">プラン</th>';
+		$html[] = '<th scope="col" class="text-nowrap">合計金額</th>';
+		$html[] = '<th scope="col" class="text-nowrap">削除</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
-        $html[] = '<tbody　class="table table-striped">';		
+        $html[] = '<tbody>';		
 
         $reservations = $this->getReservation();
         foreach($reservations as $reservation)
         {
             $html[] = '<tr>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $reservation->reserved_on; //予約日
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->getSumUsers($reservation); //利用人数
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $reservation->customer->name; //代表者名
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $reservation->customer->tel; //電話番号
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->editRoomA($reservation); //部屋
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->editPlanA($reservation); //プラン
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $reservation->sum; //合計金額
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->deleteReserveA($reservation); //削除できるようにaタグを生成
             $html[] = '</td>';
             $html[] = '</tr>';
@@ -124,7 +124,7 @@ class ManagementView
 
     protected function deleteReserveA($reservation)
     {
-        return '<a href="'.route('deleteReserve', ['id' => $reservation->id]).' ">削除</a>';
+        return '<a class="btn btn-outline-danger btn-sm" href="'.route('deleteReserve', ['id' => $reservation->id]).' ">削除</a>';
     }
 
     public function getReservation()

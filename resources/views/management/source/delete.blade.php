@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>{{$title_dt['name']}}情報削除</title>
 </head>
 <body>
+    @include('navBar.managementBar')
     <h1>{{$title_dt['name']}}情報の削除</h1>
-        <p><a href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
+        <p><a class="btn btn-outline-primary" href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">

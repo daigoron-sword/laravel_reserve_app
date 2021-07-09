@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>売上グラフ</title>
 </head>
 <body>
+    @include('navBar.managementBar')
     <h1>売上グラフ</h1>
-    <div class="card">
-        <div class="card-header text-center">
-            <a class="btn btn-outline-secondary float-left" href="{{url('/management/salesChart?date=' . $sales_chart->getPreviousMonth(). '&graph=' . $sales_chart->getGraph() )}}">前の月にずれる</a>
-            <a class="btn btn-outline-secondary" href="{{url('/management/salesChart?graph=' . $sales_chart->toggleDate() ) }}">{{$sales_chart->toggleTitle()}}</a>
-            <a class="btn btn-outline-secondary float-right" href="{{url('/management/salesChart?date=' . $sales_chart->getNextMonth(). '&graph=' . $sales_chart->getGraph() )}}">次の月にずれる</a>      
-        </div>
-        <div class="card-body">
-            <canvas id="salesChart"></canvas>
+        <div class="card">
+            <div class="card-header text-center">
+                <a class="col-sm-4 btn btn-outline-secondary float-left" href="{{url('/management/salesChart?date=' . $sales_chart->getPreviousMonth(). '&graph=' . $sales_chart->getGraph() )}}">前の月にずれる</a>
+                <a class="col-sm-4 btn btn-outline-secondary" href="{{url('/management/salesChart?graph=' . $sales_chart->toggleDate() ) }}">{{$sales_chart->toggleTitle()}}</a>
+                <a class="col-sm-4 btn btn-outline-secondary float-right" href="{{url('/management/salesChart?date=' . $sales_chart->getNextMonth(). '&graph=' . $sales_chart->getGraph() )}}">次の月にずれる</a>      
+            </div>
+            <div class="card-body">
+                <div>
+                
+                </div>
+                <canvas id="salesChart" width="100" height="125">
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
                 <!-- グラフを描画 -->
                 <script>
@@ -52,6 +57,7 @@
                         options: {
                             title: {
                                 display: true,
+                                maintainAspectRatio: false,
                                 text: title_label
                             },
                             scales:{
@@ -69,11 +75,9 @@
                         }
                     });
                 </script>
+                </canvas>
                 <!-- グラフを描画ここまで -->
-            </script>     
+            </div>
         </div>
-    </div>
-    
-
 </body>
 </html>

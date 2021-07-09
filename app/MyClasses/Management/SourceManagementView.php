@@ -23,15 +23,15 @@ class SourceManagementView
     function roomRender() 
     {
         $html = [];
-		$html[] = '<div class="room-source-management">';
-		$html[] = '<table class="table">';
+		$html[] = '<div class="table-responsive-lg">';
+		$html[] = '<table class="table table-striped">';
 		$html[] = '<thead>';
 		$html[] = '<tr>';
-		$html[] = '<th scope="col">部屋名</th>';
-		$html[] = '<th scope="col">価格</th>';
-        $html[] = '<th scope="col">開始時期</th>';
-		$html[] = '<th scope="col">終了時期</th>';
-		$html[] = '<th scope="col">編集/削除</th>';
+		$html[] = '<th scope="col class="text-nowrap">部屋名</th>';
+		$html[] = '<th scope="col class="text-nowrap">価格</th>';
+        $html[] = '<th scope="col class="text-nowrap">開始時期</th>';
+		$html[] = '<th scope="col class="text-nowrap">終了時期</th>';
+		$html[] = '<th scope="col class="text-nowrap">編集/削除</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
@@ -39,19 +39,19 @@ class SourceManagementView
         foreach($this->rooms as $room)
         {
             $html[] = '<tr>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $room->name; //部屋名
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $room->price; //価格
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $room->start_period; //開始時期
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $room->end_period; //終了時期
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->operableOrInoperable($room->id, 'room');
             $html[] = '</td>';
             $html[] = '</tr>';
@@ -70,15 +70,15 @@ class SourceManagementView
     function planRender()
     {
         $html = [];
-		$html[] = '<div class="plan-source-management">';
-		$html[] = '<table class="table">';
+		$html[] = '<div class="table-responsive-lg">';
+		$html[] = '<table class="table table-striped">';
 		$html[] = '<thead>';
 		$html[] = '<tr>';
-		$html[] = '<th scope="col">プラン名</th>';
-		$html[] = '<th scope="col">価格</th>';
-		$html[] = '<th scope="col">開始時期</th>';
-		$html[] = '<th scope="col">終了時期</th>';
-		$html[] = '<th scope="col">編集/削除</th>';
+		$html[] = '<th scope="col class="text-nowrap">プラン名</th>';
+		$html[] = '<th scope="col class="text-nowrap">価格</th>';
+		$html[] = '<th scope="col class="text-nowrap">開始時期</th>';
+		$html[] = '<th scope="col class="text-nowrap">終了時期</th>';
+		$html[] = '<th scope="col class="text-nowrap">編集/削除</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
         $html[] = '<tbody　class="table table-striped">';		
@@ -86,19 +86,19 @@ class SourceManagementView
         foreach($this->plans as $plan)
         {
             $html[] = '<tr>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $plan->name; //プラン名
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $plan->price; //価格
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $plan->start_period; //開始時期
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $plan->end_period; //終了時期
             $html[] = '</td>';
-            $html[] = '<td>';
+            $html[] = '<td class="text-nowrap">';
             $html[] = $this->operableOrInoperable($plan->id, 'plan');
             $html[] = '</td>';
             $html[] = '</tr>';
@@ -132,7 +132,7 @@ class SourceManagementView
         }else
         {
             // 適用中の予約がなければリンク生成
-            return '<a href="'.route('editSource', ['id' => $id, 'separate' => 'edit', 'branch' => $branch]).' ">編集</a>/<a href="'.route('deleteSource', ['id' => $id, 'separate' => 'delete', 'branch' => $branch]).' ">削除</a>';
+            return '<a class="btn btn-outline-primary btn-sm" href="'.route('editSource', ['id' => $id, 'separate' => 'edit', 'branch' => $branch]).' ">編集</a><a class="btn btn-outline-danger btn-sm" href="'.route('deleteSource', ['id' => $id, 'separate' => 'delete', 'branch' => $branch]).' ">削除</a>';
         }
     }
 

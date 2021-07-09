@@ -7,13 +7,14 @@
         <title>{{$title_dt['name']}}新規作成</title>
     </head>
     <body>
+        @include('navBar.managementBar')
         <h1>{{$title_dt['name']}}の新規作成</h1>
             @if(session('status'))
                 <div class="alert aler-saccsess">
                     {{session('status')}}
                 </div>
             @endif
-            <p><a href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
+            <p><a class="btn btn-outline-primary" href="{{route('sourceManagemet')}}">ソース管理へ戻る</a></p>
         <div class="container">
             <div class="row justify-content-left">
                 <div class="col-md-12">
