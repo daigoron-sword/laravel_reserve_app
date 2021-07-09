@@ -39,17 +39,17 @@ class CalendarView
 	 */
 	function render(){
 		$html = [];
-		$html[] = '<div class="calendar">';
+		$html[] = '<div class="calendar table-responsive-lg">';
 		$html[] = '<table class="table">';
 		$html[] = '<thead>';
 		$html[] = '<tr>';
-		$html[] = '<th>月</th>';
-		$html[] = '<th>火</th>';
-		$html[] = '<th>水</th>';
-		$html[] = '<th>木</th>';
-		$html[] = '<th>金</th>';
-		$html[] = '<th>土</th>';
-        $html[] = '<th>日</th>';
+		$html[] = '<th scope="col" class="text-nowrap">月</th>';
+		$html[] = '<th scope="col" class="text-nowrap">火</th>';
+		$html[] = '<th scope="col" class="text-nowrap">水</th>';
+		$html[] = '<th scope="col" class="text-nowrap">木</th>';
+		$html[] = '<th scope="col" class="text-nowrap">金</th>';
+		$html[] = '<th scope="col" class="text-nowrap">土</th>';
+        $html[] = '<th scope="col" class="text-nowrap">日</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
 		
@@ -60,7 +60,7 @@ class CalendarView
 			$html[] = '<tr class="'.$week->getClassName().'">';
 			$days = $week->getDays();
 			foreach($days as $day){
-				$html[] = '<td class="'.$day->getClassName().'">';
+				$html[] = '<td class="'.$day->getClassName().' text-nowrap">';
 				$html[] = $day->render();
 				$html[] = $day->reservedOn();
 				$html[] = '</td>';
