@@ -15,7 +15,6 @@ Route::get('/', 'HomeController@index')->name('index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@home')->name('home');
 // 予約のルーティング
 Route::prefix('reserve')->group(function(){
     Route::get('/', 'ReserveController@index')->name('reserve');
