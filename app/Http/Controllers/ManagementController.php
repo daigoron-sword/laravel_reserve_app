@@ -17,6 +17,11 @@ use App\Http\Requests\SourceRequest;
 
 class ManagementController extends Controller
 {
+   public function __construct()
+   {
+       $this->middleware('auth');
+   }
+
    /**
     * 予約管理画面
     */
