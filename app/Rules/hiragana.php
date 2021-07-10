@@ -25,6 +25,7 @@ class hiragana implements Rule
      */
     public function passes($attribute, $value)
     {
+        // ひらがなの判定
         return preg_match('/[ぁ-ん]+/u', $value);
     }
 

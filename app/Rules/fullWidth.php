@@ -25,6 +25,7 @@ class fullWidth implements Rule
      */
     public function passes($attribute, $value)
     {
+        // 全角がどうか判定する
         return preg_match("/^[ぁ-んァ-ヶ一-龥々０-９ａ-ｚＡ-Ｚー・’＠]+$/u", $value);
     }
 
