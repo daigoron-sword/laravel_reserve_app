@@ -50,6 +50,7 @@ jobs:
       - run: echo "APP_KEY=" > .env.testing
       - run: php artisan key:generate
       - run: php artisan migrate
+      - run: php artisan db:seed
 
       - run:
           name: php test
