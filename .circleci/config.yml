@@ -47,6 +47,8 @@ jobs:
             - node_modules
       - run: npm run dev
 
+      - run: echo "APP_KEY=" > .env.testing
+      - run: php artisan key:generate
       - run: php artisan migrate
       - run: php artisan db:seed
 
