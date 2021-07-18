@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class ManagementControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function testIndex()
     {
