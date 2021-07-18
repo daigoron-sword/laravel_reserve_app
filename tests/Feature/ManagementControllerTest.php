@@ -15,9 +15,9 @@ class ManagementControllerTest extends TestCase
     public function testIndex()
     {
         $user = factory(User::class)->create();
-        $response = $this->actingAs($user)->get(route('management'));
+        $response = $this->actingAs($user)->get(route('createSource', ['branch' => 'room']));
 
         $response->assertStatus(200)
-            ->assertViewIs('management.index');
+            ->assertViewIs('management.source.create');
     }
 }
