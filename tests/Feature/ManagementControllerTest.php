@@ -17,7 +17,7 @@ class ManagementControllerTest extends TestCase
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->get(route('createSource', ['branch' => 'room']));
 
-        $response->assertStatus(200)
+        $response->assertStatus(400)
             ->assertViewIs('management.source.create');
     }
 }
