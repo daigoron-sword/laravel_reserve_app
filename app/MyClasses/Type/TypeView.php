@@ -2,7 +2,7 @@
 namespace App\MyClasses\Type;
 
 use Illuminate\Http\Request;
-use App\Models\type;
+use App\Models\Type;
 use App\Models\MealPlan;
 use App\Http\Requests\PlanTypeRequest;
 // セッションファサード
