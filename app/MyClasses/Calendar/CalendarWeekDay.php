@@ -2,7 +2,7 @@
 namespace App\MyClasses\Calendar;
 use Carbon\Carbon;
 use App\Models\Room;
-use App\Models\mealPlan;
+use App\Models\MealPlan;
 use App\Models\Reservation;
 
 

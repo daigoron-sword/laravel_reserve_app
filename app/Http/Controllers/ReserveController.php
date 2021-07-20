@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Myclasses\MyServiceInterface;
-use App\Myclasses\Calendar\CalendarView;
-use App\Myclasses\Type\TypeView;
+use App\MyClasses\MyServiceInterface;
+use App\MyClasses\Calendar\CalendarView;
+use App\MyClasses\Type\TypeView;
 use App\Models\Csutomer;
 use App\Models\Type;
 use App\Models\MealPlan;

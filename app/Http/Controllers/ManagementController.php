@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Myclasses\Management\ManagementView;
-use App\Myclasses\Management\SourceManagementView;
-use App\Myclasses\Chart\SalesChartDay;
-use App\Myclasses\Chart\SalesChartMonth;
+use App\MyClasses\Management\ManagementView;
+use App\MyClasses\Management\SourceManagementView;
+use App\MyClasses\Chart\SalesChartDay;
+use App\MyClasses\Chart\SalesChartMonth;
 use App\Models\Reservation;
 use App\Models\Customer;
 use App\Models\Room;
