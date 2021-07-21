@@ -8,7 +8,6 @@
     <title>予約管理</title>
 </head>
 <body>
-    <p>circleciデプロイテスト</p>
     <div class="container-fuled">
         @include('navBar.managementBar')
         <h1>予約管理</h1>
