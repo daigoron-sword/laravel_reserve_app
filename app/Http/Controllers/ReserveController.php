@@ -35,6 +35,9 @@ class ReserveController extends Controller
         //dateがYYYY-MMの形式化どうか判定する
 		if($date && preg_match("/^[0-9]{4}-[0-9]{2}$/", $date)){
 			$date = strtotime($date . "-01");
+            //カーボンを使うので日付でタイムスタンプではなく日付に変換する
+			$date = date('Y-m-d', $date);
+
 		}else{
 			$date = null;
         }
