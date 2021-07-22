@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Myclasses\Type\TypeView;
+use App\MyClasses\Type\TypeView;
 
 class ConfirmMail extends Mailable
 {
