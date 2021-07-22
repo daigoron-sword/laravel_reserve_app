@@ -202,7 +202,7 @@ class ManagementController extends Controller
    /**
     * 部屋ソース編集処理
     */
-   public function finishSource(EditSourceRequest $request)
+   public function finishSource(SourceRequest $request)
    {
       if($request->branch == 'room')
       {
