@@ -9,7 +9,7 @@ $factory->define(App\Models\Reservation::class, function (Faker $faker) {
         'customer_id' => factory(App\Models\Customer::class)->create(),
         'room_id' => $faker->numberBetween(1,4),
         'meal_plan_id' => $faker->numberBetween(1,4),
-        'reserved_on' => $faker->dateTimeBetween('-1 years', 'now', date_default_timezone_get()),
+        'reserved_on' => $faker->dateTimeBetween('-6 months', 'now', date_default_timezone_get()),
         'transportation' => '車',
         'check_in_time' => '16:00:00',
         'request' => $faker->realText(50, 2),

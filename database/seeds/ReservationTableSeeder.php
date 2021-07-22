@@ -11,10 +11,10 @@ class ReservationTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Reservation::class, 10)
+        factory(App\Models\Reservation::class, 10000)
             ->create()
             ->each(function($reservation){
-                $reservation->NumberOfUser()->createMany(factory(App\Models\NumberOfUser::class, 2)->make()->toArray());
+                $reservation->NumberOfUser()->create(factory(App\Models\NumberOfUser::class)->make(['reserve_id' => $reservation->id, 'type_id' => 1])->toArray());
             });
     }
 }
