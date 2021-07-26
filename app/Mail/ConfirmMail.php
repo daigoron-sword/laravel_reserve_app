@@ -36,7 +36,6 @@ class ConfirmMail extends Mailable
         $type_dt = $i->price_mail_form($this->reservation_dt, $this->number_of_user_dt);
         return $this->subject('ご予約ありがとうございます（テスト）')
             ->from('dsr.daichi@gmail.com')
-            ->cc('dsr.daichi@gmail.com')
             ->text('mail/confirm')
             ->with(['reservation_dt' => $this->reservation_dt,
                     'number_of_user_dt' => $this->number_of_user_dt,
