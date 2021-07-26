@@ -12,7 +12,8 @@
 */
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
+Route::get('/', 'ReserveController@index');
 
 // 予約のルーティング
 Route::prefix('reserve')->group(function(){
