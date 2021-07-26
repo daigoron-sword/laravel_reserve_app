@@ -12,7 +12,7 @@
 */
 
 
-Auth::routes(['register' => false]);
+Auth::routes();
 Route::get('/', 'ReserveController@index');
 
 // 予約のルーティング
