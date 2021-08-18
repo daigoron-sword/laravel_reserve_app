@@ -10,6 +10,7 @@
 <body>
     <div class="container-fuled">
         @include('navBar.managementBar')
+        <p><a href="{{route('reserve')}}" class="btn btn-outline-primary roll=button">予約画面に移る</a></p>
         <h1>予約管理</h1>
         @if(session('status'))
             <div class="alert alert-saccsess">
